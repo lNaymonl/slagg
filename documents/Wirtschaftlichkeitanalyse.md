@@ -4,7 +4,7 @@
 
 Während der Analysephase ergab die Recherche, dass es auf dem Markt keine vergleichbaren Lösungen für Slack gibt, die unseren Anforderungen entsprechen **_(Nämlich: selbst gehostet, Open Source, mit neuer Technik?)_**.
 
-Die Beauftragung eines Dienstleisters für die Softwareentwicklung ist keine praktikable Option, da es schwierig ist, einen Anbieter zu finden, der zu angemessenen Kosten liefern kann. Außerdem machen die laufenden Kosten für Wartung und Instandhaltung diese Alternative unpraktisch.
+Die Beauftragung eines Dienstleisters für die Softwareentwicklung ist keine praktikable Option, da es schwierig ist, einen Anbieter zu finden, der das Produkt zu angemessenen Kosten liefern kann. Außerdem machen die laufenden Kosten für Wartung und Instandhaltung diese Alternative unpraktisch.
 
 Die Wirtschaftlichkeit des „Make“-Szenarios wird durch eine deutliche Steigerung der Flexibilität, Skalierbarkeit und Anpassungsfähigkeit ergänzt. Da die Software relativ einfach ist und auf vorhandener Hardware läuft, sind Wartung und Instandhaltung vernachlässigbar.
 
