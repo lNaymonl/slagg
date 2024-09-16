@@ -1,4 +1,5 @@
 # 1. Allgemeine Projektinformationen
+
 ## 1.1 Projektname
 
 Das Projekt soll unter dem nahmen **Slagg** entwickelt werden
@@ -17,7 +18,7 @@ Kontakt: E-Mail, Telefon
 
 ## 1.4 Ziel des Projektes
 
-Prototypenentwicklung eines On-Premise Chat-Tool für eine nach außen abgesicherte Kommunikation im Hinblick auf besonders kritische Daten. 
+Prototypenentwicklung eines On-Premise Chat-Tool für eine nach außen abgesicherte Kommunikation im Hinblick auf besonders kritische Daten.
 
 # 2. Ausgangssituation
 
@@ -36,17 +37,17 @@ Eine Alternative zur Kommunikation über Email wäre eine Chat-Lösung wie Slack
 ## 3.1 Funktionale Anforderungen
 
 Slagg muss folgende funktionale Anforderungen erfüllen: <br>
-•	Ein intuitives Design <br>
-•	Die Möglichkeit sich als Nutzer anzumelden <br>
-•	Nur Administratoren sollen Nutzer anlegen können <br>
-•	Direkte Chats <br>
-•	Gruppen Chats  <br>
-•	Administratoren müssen alle Chats beobachten können <br>
-•	Es muss eine Liste an verbotenen Worten geben, dessen Verwendung in einer Nachricht dazu führt, dass diese Nachricht nicht versandt wird
+• Ein intuitives Design <br>
+• Die Möglichkeit sich als Nutzer anzumelden <br>
+• Nur Administratoren sollen Nutzer anlegen können <br>
+• Direkte Chats <br>
+• Gruppen Chats <br>
+• Administratoren müssen alle Chats beobachten können <br>
+• Es muss eine Liste an verbotenen Worten geben, dessen Verwendung in einer Nachricht dazu führt, dass diese Nachricht nicht versandt wird
 
 ## 3.2 Technische Anforderungen
 
-Die hauptsächliche Anforderung des Projektes liegt darin, dass Slagg lokal ausführbar bleiben muss, es darf also keine Verbindung zum Internet notwendig sein. 
+Die hauptsächliche Anforderung des Projektes liegt darin, dass Slagg lokal ausführbar bleiben muss, es darf also keine Verbindung zum Internet notwendig sein.
 
 # 4. Randbedingungen
 
@@ -56,7 +57,33 @@ Der Zeitplan sieht einen Abschluss des Projektes nach ungefähr 2 Monaten vor. D
 
 ## 4.2 Budget
 
+### Kostenplanung
+
+Die folgenden Berechnungen basieren auf einem fiktiven Lehrlingslohn von 12,50€, dies ist ein angemessener Lohn, weil der Lehrling -über seiner eigentlichen Vergütung hinaus- ebenfalls Kosten verursacht. Die Materialkosten entfallen, da das Unternehmen bereits über eine Vielzahl von Entwicklungswerkzeugen verfügt. Für die restlichen benötigten Programme können kostenlose Alternativen, wie z.B. Open-Source-Software, verwendet werden.
+
+Die **Mehraufwandkosten** von 20€ pro Stunde beziehen sich auf zusätzliche betriebliche Kosten, wie zum Beispiel administrative Ausgaben, Lizenzkosten für spezielle Software (z.B. IDE oder Versionskontrollsysteme), sowie eventuelle Hardware-Abnutzung.
+
+| **Vorgang**     | **Stundensatz** | **Mehraufwand** | **Zeit** | **Gesamt** |
+| --------------- | --------------- | --------------- | -------- | ---------- |
+| Analyse         | 12.5€           | 20€             | 11       | 357€       |
+| Entwurf         | 12.5€           | 20€             | 24       | 780€       |
+| Implementierung | 12.5€           | 20€             | 104      | 3380€      |
+| Deployment      | 12.5€           | 20€             | 20       | 650€       |
+| Dokumentation   | 12.5€           | 20€             | 32       | 1040€      |
+| **Summe**       |                 |                 |          | **6207€**  |
+
+### Amortisationsrechnung
+
+Die Gesamtkosten für die Entwicklung des Softwareprojekts belaufen sich gemäß der Kostenplanung auf 6.207€. Der Kunde trägt 35% der Gesamtkosten, was den zu amortisierenden Betrag auf 4.034€ reduziert.
+
+Wir erwarten, dass wir in den ersten 12 Monaten nach der Markteinführung 6 Jahreslizenzen verkaufen werden. Nach diesem Zeitraum rechnen wir mit einem jährlichen Wachstumsanstieg von 20%. Das Produkt wird zu einem Preis von 50€ pro Kunde und Monat angeboten, was bedeutet, dass sich die Investition innerhalb von zwei Jahren vollständig amortisieren wird.
+
+### Nicht-monetäre Entscheidung
+
+Das Projekt bringt dem Unternehmen nicht nur finanzielle Vorteile. Es ermöglicht den Mitarbeitern, wertvolle Erfahrungen in der Webentwicklung zu sammeln, was bisher nicht zu den Kernkompetenzen des Unternehmens gehörte. Die Einbindung neuer Programmiersprachen und Technologien kann zukünftige Projekte bereichern und die Innovationskraft des Unternehmens steigern. Gleichzeitig erhalten die Auszubildenden praktische Einblicke in Bereiche, die sie sonst in ihrer Ausbildung möglicherweise nicht kennengelernt hätten. Diese Weiterentwicklung stärkt auch die Wettbewerbsfähigkeit des Unternehmens.
+
 # 5. Abnahmekriterien
+
 ## 5.1 Kriterien für die Abnahme des Projekts
 
-Für die Abnahme von Slagg müssen die Funktionalen so wie technischen Anforderungen erfüllt worden sein. Ebenso muss eine vollständige Dokumentation des Projektes erfolgt sein. 
+Für die Abnahme von Slagg müssen die Funktionalen so wie technischen Anforderungen erfüllt worden sein. Ebenso muss eine vollständige Dokumentation des Projektes erfolgt sein.
