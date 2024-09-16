@@ -2,7 +2,7 @@
 
 ## Kostenplanung
 
-Die folgenden Berechnungen basieren auf einem fiktiven Lehrlingslohn von 12,50€, da dies ein angemessener Lohn ist, der das Unternehmen zusätzliche Kosten verursacht. Die Materialkosten entfallen, da das Unternehmen bereits über eine Vielzahl von Entwicklungswerkzeugen verfügt. Für die restlichen benötigten Programme können kostenlose Alternativen, wie z.B. Open-Source-Software, verwendet werden.
+Die folgenden Berechnungen basieren auf einem fiktiven Lehrlingslohn von 12,50€, dies ist ein angemessener Lohn, weil der Lehrling -über seiner eigentlichen Vergütung hinaus- ebenfalls Kosten verursacht. Die Materialkosten entfallen, da das Unternehmen bereits über eine Vielzahl von Entwicklungswerkzeugen verfügt. Für die restlichen benötigten Programme können kostenlose Alternativen, wie z.B. Open-Source-Software, verwendet werden.
 
 Die **Mehraufwandkosten** von 20€ pro Stunde beziehen sich auf zusätzliche betriebliche Kosten, wie zum Beispiel administrative Ausgaben, Lizenzkosten für spezielle Software (z.B. IDE oder Versionskontrollsysteme), sowie eventuelle Hardware-Abnutzung.
 
