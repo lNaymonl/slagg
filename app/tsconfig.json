@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@common/*": ["./common/src/*"]
+      }
+    },
+    "references": [
+      { "path": "./server" },
+      { "path": "./client" },
+      { "path": "./common" }
+    ]
+  }
+  

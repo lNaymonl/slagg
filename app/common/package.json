@@ -1,0 +1,11 @@
+{
+  "name": "slagg-common",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.5"
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "extends": "@tsconfig/strictest",
+    "compilerOptions": {
+        "strict": true,
+        "target": "ES2020",
+        "module": "ESNext",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "composite": true
+    },
+}
