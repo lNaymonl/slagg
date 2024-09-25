@@ -1,0 +1,31 @@
+title Generate JWT-Token
+
+participant Client
+participant Server
+participant Database
+
+alt LoginSuccessfull
+Client->Server:Http-GET-Request: /api/login
+activate Client
+activate Server
+Server->Database:Database-Request: User
+activate Database
+Server<--Database:Database-Response: User
+deactivate Database
+Server->Server:Validate: User
+Server->Server:Generate: JWT-Token
+Client<--Server:Http-Response: JWT-Token
+deactivate Client
+deactivate Server
+else LoginUnsuccessfull
+Client->Server:Http-GET-Request: /api/login
+activate Client
+activate Server
+Server->Database:Database-Request: User
+activate Database
+Server<--Database:Database-Response: NULL
+deactivate Database
+Client<--Server:Http-Response: Error
+deactivate Client
+deactivate Server
+end
