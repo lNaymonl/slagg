@@ -26,6 +26,8 @@ app.use("/api", apiRouter);
 // TODO add the websocket using socket.io
 // Preferably on the /ws route
 
+// TODO add middleware for user and admin validation
+
 // Client Mapping
 // If in the production environment, just serves the built index.html file
 // If in the development environment, the requests to "/*" are proxied to the client webserver
