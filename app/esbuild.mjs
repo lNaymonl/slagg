@@ -8,7 +8,7 @@ await build({
     outfile: "./dist/index.js",
     bundle: true,
     platform: "node",
-    // external: ["express"],
+    external: ["swagger-ui-express"],
     sourcemap: !production,
     tsconfig: "./server/tsconfig.json",
     define: {
@@ -18,18 +18,3 @@ await build({
     minify: production
 });
 console.log();
-
-// console.info("Building Server with env:", production ? "production" : "development");
-// await build({
-//     entryPoints: ["./common/src/**/*.ts"],
-//     outdir: "./dist",
-//     sourcemap: true,
-//     tsconfig: "./common/tsconfig.json",
-//     logLevel: "info",
-//     minify: true
-// });
-
-// Promise.all([
-//     serverBuild,
-//     commonBuild
-// ]);
