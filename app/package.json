@@ -5,7 +5,7 @@
   "scripts": {
     "dev:client": "npm run -w client dev",
     "dev:server": "nodemon",
-    "build": "node ./esbuild.mjs prod && npm run -w client build -s"
+    "build": "rimraf ./dist && node ./esbuild.mjs prod && npm run -w client build -s"
   },
   "author": "",
   "license": "ISC",
