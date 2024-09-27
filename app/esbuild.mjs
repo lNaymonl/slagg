@@ -1,6 +1,6 @@
 import { build } from "esbuild";
 
-const production = process.argv[2] == "prod";
+const production = process.argv[2] == "--prod";
 
 console.info("Building Server with env:", production ? "production" : "development");
 await build({
@@ -17,4 +17,4 @@ await build({
     logLevel: "info",
     minify: production
 });
-console.log();
+console.log(); // Add new line to stdout
