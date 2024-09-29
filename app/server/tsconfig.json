@@ -5,15 +5,23 @@
         "target": "ES2020",
         "moduleResolution": "Node",
         "esModuleInterop": true,
-        "outDir": "./dist",
-        "rootDir": "./src",
+        "outDir": "../dist",
+        "rootDir": "./",
         "paths": {
-            "@common/*": ["../common/src/*"],
-            "@docs/*": ["../../documents/*"]
+            "@common/*": ["../common/src/*"]
         },
         "composite": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "allowArbitraryExtensions": true
     },
-    "include": ["src"],
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.json",
+        "src/**/*.d.ts"
+    ],
     "references": [{ "path": "../common" }]
+    // ,
+    // "tsc-alias": {
+    //     "outDir": "../dist"
+    // }
 }

@@ -1,6 +1,9 @@
 {
     "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/nodemon.json",
-    "exec": "node ./esbuild.mjs && node ./dist/index.js",
-    "watch": ["src/*"],
-    "ext": "ts,json"
+    "exec": "node ./esbuild.mjs && node --enable-source-maps ./dist/index.js",
+    "watch": [
+        "./server/src/*",
+        "../documents/*"
+    ],
+    "ext": "ts,json,yaml"
 }
