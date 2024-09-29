@@ -20,8 +20,4 @@
         "src/**/*.d.ts"
     ],
     "references": [{ "path": "../common" }]
-    // ,
-    // "tsc-alias": {
-    //     "outDir": "../dist"
-    // }
 }
