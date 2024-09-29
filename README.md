@@ -1,6 +1,15 @@
 # Slagg
 An internal Slack clone.
 
+## Install
+To install all dependencies just execute
+```bash
+$ npm install
+# or
+$ npm i
+```
+in the `<rootDir>/app/` directory.
+
 ## Run the app in dev mode
 Open two terminals and navigate to the `<rootDir>/app/` directory:
 ```bash
