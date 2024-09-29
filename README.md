@@ -40,7 +40,7 @@ This first removes the directory under `<rootDir>/app/dist/` if it exists. Then 
 
 ---
 
-The `build` command in the `app` directory constist of three individual commands:
+The `build` command in the `app` directory consists of three individual commands:
 
 ```bash
 $ rimraf ./dist
