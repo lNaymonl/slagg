@@ -1,0 +1,30 @@
+$body-color: #eae9fc; // Foreground color
+$body-bg: #191919;    // Background color
+$primary: #4631af;
+$secondary: #a4285c;
+$accent: #e6990a;
+
+// Define a custom color theme
+$custom-colors: (
+    "body-color": $body-color,
+    "body-bg": $body-bg,
+    "primary": $primary,
+    "secondary": $secondary,
+    "accent": $accent,
+);
+
+// WORKARROUND these are the standard colors of bootstrap
+// To merge them with the custom colors defined above, they have to be redefined here
+$theme-colors: (
+    "success": #198754,
+    "info": #0dcaf0,
+    "warning": #ffc107,
+    "danger": #dc3545,
+    "light": #f8f9fa,
+    "dark": #212529
+);
+
+// Merge the standard bootstrap colors with the custom ones
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
