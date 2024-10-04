@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  title: Slagg API Defennition
+  version: 0.1.0
+servers:
+  - url: /
+paths:
+  /api/user:
+    get:
+      deprecated: false
+    post:
+      deprecated: false
+    put:
+      deprecated: false
+    delete:
+      deprecated: false
+
+  /api/user/password:
+    post:
+      deprecated: false
+
+  /api/user/setting:
+    get:
+      # deprecated: false
+      $ref: '#/components/responses/settings'
+
+  /api/user/setting/{settingId}:
+    get:
+      deprecated: false
+    post:
+      deprecated: false
+    put:
+      deprecated: false
+    delete:
+      deprecated: false
+
+  /api/user/login:
+    post:
+      deprecated: false
+  /api/user/logout:
+    post:
+      deprecated: false
+
+  /api/channel:
+    get:
+      deprecated: false
+    put:
+      deprecated: false
+    delete:
+      deprecated: false
+
+  /api/channel/{channelId}:
+    get:
+      deprecated: false
+    post:
+      deprecated: false
+
+components:
+  schemas:
+    setting:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+  responses:
+    settings:
+      description: The users settings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/setting'
+
