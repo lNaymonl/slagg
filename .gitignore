@@ -3,3 +3,4 @@
 
 # Compiled files
 dist
+.vscode/settings.json
