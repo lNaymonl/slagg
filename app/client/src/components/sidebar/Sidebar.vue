@@ -1,9 +1,10 @@
 <template>
     <aside :class="`${isExpanded ? 'isExpanded' : ''}`">
         <div class="logo">
-            <img src="../assets/Slagg_Logo_Alt_Bright.png" alt="Slagg">
-            <img id="SlaggName" src="../assets/Slagg-Name.png" alt="SlaggName">
+            <img src="../../assets/Slagg_Logo_Alt_Bright.png" alt="Slagg">
+            <img id="SlaggName" src="../../assets/Slagg-Name.png" alt="SlaggName">
         </div>
+        <img src=".." alt="">
 
         <div class="menu-toggle-wrap">
             <button class="menu-toggle" @click="ToggleMenu">
