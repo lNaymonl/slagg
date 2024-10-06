@@ -1,40 +1,43 @@
 <template>
-    <aside :class="`${isExpanded ? 'isExpanded' : ''}`">
-        <div class="logo">
-            <img src="../../assets/Slagg_Logo_Alt_Bright.png" alt="Slagg">
-            <img id="SlaggName" src="../../assets/Slagg-Name.png" alt="SlaggName">
-        </div>
-        <img src=".." alt="">
+    <div class="sidebar">
+        <aside :class="`${isExpanded ? 'isExpanded' : ''}`">
+            <div class="top_box">
 
-        <div class="menu-toggle-wrap">
-            <button class="menu-toggle" @click="ToggleMenu">
-<span class="material-symbols-outlined">
-login
-</span>
-            </button>
-        </div>
+                <div class="logo">
+                    <img src="../../assets/Slagg_Logo_Alt_Bright.png" alt="Slagg">
+                    <img id="SlaggName" src="../../assets/Slagg-Name.png" alt="SlaggName">
+                </div>
+           
 
-        <h3>Menu</h3>
-        <div class="menu">
-            <router-link to="/" class="button">
-                <span class="material-symbols-outlined">home</span>
-                <span class="text">Home</span>
-            </router-link>
-            <router-link to="/settings" class="button">
-                <span class="material-symbols-outlined">settings</span>
-                <span class="text">Settings</span>
-            </router-link>
-        </div>
+                <div class="menu-toggle-wrap">
+                    <button class="menu-toggle" @click="ToggleMenu">
+                        <span class="material-symbols-outlined">login</span>
+                    </button>
+                </div>
+            </div>
+            
+            <h3>Menu</h3>
+            <div class="menu">
+                <router-link to="/" class="button">
+                    <span class="material-symbols-outlined">home</span>
+                    <span class="text">Home</span>
+                </router-link>
+                <router-link to="/settings" class="button">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text">Settings</span>
+                </router-link>
+            </div>
 
-        <div class="flex"></div>
-       
-        <div class="menu">
-            <router-link to="/admin" class="button">
-                <span class="material-symbols-outlined">shield</span>
-                <span class="text">Admin</span>
-            </router-link>
-        </div>
-    </aside>
+            <!-- <div class="flex"></div>‚ -->
+        
+            <div class="menu">
+                <router-link to="/admin" class="button">
+                <span class="material-symbols-outlined">admin_panel_settings</span>
+                    <span class="text">Admin</span>
+                </router-link>
+            </div>
+        </aside>
+    </div>
 </template>
 
 <script setup>
@@ -60,9 +63,11 @@ aside {
     padding: 1rem;
 
     transition: 0.2s ease-in-out;
+
     #SlaggName {
         display: none;
     }
+
     .flex {
         flex: 1 1 0%;
     }
@@ -81,7 +86,7 @@ aside {
         justify-content: flex-end;
         margin-bottom: 1rem;
 
-        position: relative;
+        position: -webkit-sticky;
         top: 0;
         transition: 0.2s ease-in-out;
 
@@ -172,6 +177,15 @@ aside {
             width: 50%;
         }
 
+        .top_box{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            align-content: stretch;
+        }
+
         .logo {
                 img {
                     width: 4rem;
@@ -204,6 +218,14 @@ aside {
     @media (max-width: 1024px) {
         position: absolute;
         z-index: 99;
+    }
+    .sidebar {
+        flex: 0 0 250px;
+        background-color: var(--dark);
+        height: calc(100vh - 60px); /* Adjust based on header height */
+        position: sticky;
+        top: 60px; /* Adjust based on header height */
+        overflow-y: auto;
     }
 }
 </style>
