@@ -33,11 +33,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResponseModel"
               examples:
-                ErrorModel:
-                  value:
-                    ok: false
-                    statusCode: 401
-                    message: You are not logged in. Can't access any Users.
+                Unauthorized:
+                  $ref: "#/components/examples/NotLoggedIn"
       deprecated: false
     post:
       requestBody:
@@ -76,7 +73,7 @@ paths:
                     ok: false
                     statusCode: 401
                     message: "You dont have access to the User: `userId`"
-        '404':
+        '404': # TODO check if it should be replaced with a 400
           description: The User to update does not exist
           content:
             application/json:
@@ -176,7 +173,7 @@ paths:
                     ok: false
                     statusCode: 401
                     message: "Requested User: {userId} is not accessible to the current User."
-        '404':
+        '404': # TODO check if it should be replaced with a 400
           description: Is returned when the User with the given `userId` is not found.
           content:
             application/json:
@@ -220,7 +217,7 @@ paths:
                   ok: false
                   statusCode: 401
                   message: You are not allowed to delete this User
-      '404':
+      '404': # TODO check if it should be replaced with a 400
         description: The User to delete was not found
         content:
           application/json:
@@ -276,7 +273,7 @@ paths:
                     ok: false
                     statusCode: 401
                     message: You are not allowed to change the password of the specified User
-        '404':
+        '404': # TODO check if it should be replaced with a 400
           description: The specified User for which the password should be changed was not found
           content:
             application/json:
@@ -293,38 +290,178 @@ paths:
 
   /api/user/setting:
     get:
+      responses:
+        '200':
+          description: Returns all settings for the current User
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SettingModel"
+              examples:
+                Settings:
+                  $ref: "#/components/examples/Settings"
+        '401':
+          description: If no user is logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  $ref: "#/components/examples/NotLoggedIn"
       deprecated: false
     post:
-      deprecated: false
-    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/SettingModel"
+            examples:
+              Settings:
+                $ref: "#/components/examples/Settings"
+      responses:
+        '200':
+          description: Is returned when the changes were successfully changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingModel"
+              examples:
+                Success:
+                  description: Is returned when the changes were successfully changed
+                  value:
+                    ok: true
+                    statusCode: 200
+                    message: All settings have been successfully saved.
+        '401':
+          description: If the current user has no access to the users settings which are currently beeing saved.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  description: The current user is not allowed to save the given settings.
+                  value:
+                    ok: false
+                    statusCode: 401
+                    message: You are not allowed to save these settings.
+        '404': # TODO check if it should be replaced with a 400
+          description: Some settings the user is trying to save, do not exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                NotFound:
+                  description: Some settings the user is trying to save, do not exist
+                  value:
+                    ok: false
+                    statusCode: 404
+                    message: "The following settings you are trying to save, do not exist:\n{settingId[i] + \n}"
       deprecated: false
 
-  /api/user/setting/{settingId}:
-    get:
-      deprecated: false
-    delete:
-      deprecated: false
+  # /api/user/setting/{settingId}:
+  #   get:
+  #     deprecated: false
 
   /api/user/login:
     post:
       security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginUserModel"
+            examples:
+              LoginUser:
+                value:
+                  email: "max.mustermann@example.com"
+                  password: strongPassword
+      responses:
+        '200':
+          description: Login successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Success:
+                  value:
+                    ok: true
+                    statusCode: 200
+                    message: You are now logged in.
+        '400': # TODO check if it should be replaced with a 404
+          description: No user with the given credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Bad Request:
+                  value:
+                    ok: false
+                    statusCode: 400
+                    message: No user with the given credentials
       deprecated: false
   /api/user/logout:
     post:
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+          allowEmptyValue: false
+          description: The JWT-Token of the current User
+      responses:
+        '200':
+          description: Logged out successfully.
       deprecated: false
 
   /api/channel:
     get:
+      description: Gets all the channels the user has access to
+      responses:
+        '200':
+          description: Returns all Channels the User has access to
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelModel"
+              examples:
+                Success:
+                  description: Returns all Channels the User has access to
+                  value:
+                    -
+                      channelId: 666
+                      name: "Big Dick G's"
+                    -
+                      channelId: 110
+                      name: "{User}"
+        '401':
+          description: If the user is not logged in.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  $ref: "#/components/examples/NotLoggedIn"
+      deprecated: false
+    post:
       deprecated: false
     put:
       deprecated: false
     delete:
       deprecated: false
 
-  /api/channel/{channelId}:
+  /api/channel/{channelId}: # Switch protcols to use websockets
     get:
-      deprecated: false
-    post:
       deprecated: false
 
 components:
@@ -362,6 +499,16 @@ components:
           type: string
         userName:
           type: string
+    LoginUserModel:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
     ChangePasswordModel:
       type: object
       required:
@@ -384,6 +531,25 @@ components:
           type: number
         message:
           type: string
+    SettingModel:
+      type: object
+      required:
+        - settingId
+        - value
+      properties:
+        settingId:
+          type: string
+        value:
+          type: any
+        userId:
+          type: number
+    ChannelModel:
+      type: object
+      properties:
+        channelId:
+          type: number
+        name:
+          type: string
   examples:
     User:
       value:
@@ -391,6 +557,21 @@ components:
         firstName: "Max"
         lastName: "Mustermann"
         email: "max.mustermann@example.com"
+    Settings:
+      value:
+        -
+          settingId: anImportendSetting
+          value: Really importend value
+          userId: 69420
+        -
+          settingId: aVeryImportendSetting
+          value: Really importend value2
+          userId: 69420
+    NotLoggedIn:
+      value:
+        ok: false
+        statusCode: 401
+        message: You are not logged in.
   securitySchemes:
     BearerAuth:
       type: http
