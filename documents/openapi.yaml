@@ -386,15 +386,12 @@ paths:
         '200':
           description: Login successfull
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: "#/components/schemas/ResponseModel"
+                type: string
               examples:
                 Success:
-                  value:
-                    ok: true
-                    statusCode: 200
-                    message: You are now logged in.
+                  value: "{JWT-Token}"
         '400': # TODO check if it should be replaced with a 404
           description: No user with the given credentials
           content:
