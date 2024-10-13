@@ -1,21 +1,24 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import LoginView from './views/LoginView.vue';
+
+import UserLib from "./libs/user.lib";
+import User from './libs/user.lib';
+
+// UserLib.login({
+//   email: "abc",
+//   password: "hehe"
+// }).then((res) => {
+//   console.log(res);
+// });
+// console.log(UserLib.getToken());
+// console.log(UserLib.getUser())
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <!-- <RouterView v-if="!User.getUser()" /> -->
+  <LoginView></LoginView>
 </template>
 
 <style scoped>
