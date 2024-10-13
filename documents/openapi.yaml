@@ -461,7 +461,10 @@ paths:
       deprecated: false
 
   /api/channel/{channelId}: # Switch protcols to use websockets
-    get:
+    get: # TODO add websocket callback
+      responses:
+        '101':
+          description: Switches the protocol to use websocket
       deprecated: false
 
 components:
