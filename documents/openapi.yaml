@@ -4,74 +4,581 @@ info:
   version: 0.1.0
 servers:
   - url: /
+security:
+  - BearerAuth: [User]
 paths:
   /api/user:
     get:
+      responses:
+        '200':
+          description: Returns all users the current User has access to.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserModel"
+              examples:
+                Users:
+                  value:
+                    -
+                      userId: 69420
+                      firstName: "Max"
+                      lastName: "Mustermann"
+                      email: "max.mustermann@example.com"
+        '401':
+          description: Returned when no login is detected.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  $ref: "#/components/examples/NotLoggedIn"
       deprecated: false
     post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserModel"
+            examples:
+              User:
+                description: The requested User with the given `userId`.
+                $ref: "#/components/examples/User"
+      responses:
+        '200':
+          description: The update of the User succeeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Success:
+                  description: The update of the given User succeeded
+                  value:
+                    ok: true
+                    statusCode: 200
+                    message: "Updating User: `userId` was successfull"
+        '401':
+          description: The current User has no access to the requested User
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  description: No access to the User `userId`
+                  value:
+                    ok: false
+                    statusCode: 401
+                    message: "You dont have access to the User: `userId`"
+        '404': # TODO check if it should be replaced with a 400
+          description: The User to update does not exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                NotFound:
+                  description: The User `userId` was not found
+                  value:
+                    ok: false
+                    statusCode: 404
+                    message: "The User `userId` was not found"
       deprecated: false
     put:
+      security:
+        - BearerAuth: [Admin]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddUserModel"
+            examples:
+              User:
+                description: The requested User with the given `userId`.
+                value:
+                  firstName: "Max"
+                  lastName: "Mustermann"
+                  email: "max.mustermann@example.com"
+      '201':
+        description: Adding the user was successfull
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserModel"
+            examples:
+              User:
+                description: The requested User with the given `userId`.
+                $ref: "#/components/examples/User"
+      '401':
+        description: No right to add a User
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResponseModel"
+            examples:
+              Unauthorized:
+                description: The current User is not allowed to create new Users
+                value:
+                  ok: false
+                  statusCode: 401
+                  message: You are not allowed to create new Users.
+      '409':
+        description: Indicates that the User has already been created.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResponseModel"
+            examples:
+              Conflict:
+                description: The User already exists
+                value:
+                  ok: false
+                  statusCode: 409
+                  message: The User already exists. If the intend was to update the User, use the HTTP-POST method.
+      deprecated: false
+  /api/user/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        description: ID of the User to get
+        required: true
+        schema:
+          type: number
+        allowEmptyValue: false
+    get:
+      responses:
+        '200':
+          description: Gets the specified user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserModel"
+              examples:
+                User:
+                  description: The requested User with the given `userId`.
+                  $ref: "#/components/examples/User"
+        '401':
+          description: If the current user can't access the requested user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                ErrorModel:
+                  description: The Error Model that is returned when the current User has no access to the requested User.
+                  value: 
+                    ok: false
+                    statusCode: 401
+                    message: "Requested User: {userId} is not accessible to the current User."
+        '404': # TODO check if it should be replaced with a 400
+          description: Is returned when the User with the given `userId` is not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                ErrorModel:
+                  description: The Error Model that is returned when the User is not found.
+                  value:
+                    ok: false
+                    statusCode: 404
+                    message: "User: {userId} is not found."
       deprecated: false
     delete:
+      security:
+        - BearerAuth: [Admin]
+      responses:
+        '200':
+          description: The User was deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Success:
+                  description: The User was deleted successfully
+                  value:
+                    ok: true
+                    statusCode: 200
+                    message: The User was deleted successfully
+      '401': # TODO is this really nessecary? The authentication middleware should already catch this
+        description: The current User is not allowed to delete other Users
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResponseModel"
+            examples:
+              Unauthorized:
+                description: The current User is not allowed to delete other Users
+                value:
+                  ok: false
+                  statusCode: 401
+                  message: You are not allowed to delete this User
+      '404': # TODO check if it should be replaced with a 400
+        description: The User to delete was not found
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResponseModel"
+            examples:
+              NotFound:
+                description: The User to delete was not found
+                value:
+                  ok: false
+                  statusCode: 404
+                  message: The User to delete was not found
       deprecated: false
 
   /api/user/password:
     post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangePasswordModel"
+            examples:
+              ChangePasswordModel:
+                description: The model used to change the password of the given user
+                value:
+                  userId: 69420
+                  oldPassword: strongPassword
+                  newPassword: verystrongPassword
+      responses:
+        '200':
+          description: The password change was successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Success:
+                  description: The password change was successfull
+                  value:
+                    ok: true
+                    statusCode: 200
+                    message: The password change was successfull
+        '401':
+          description: If the current User is not allowed to change the password of the specified User
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  description: The current USer is not allowed to change the password of the specified User
+                  value:
+                    ok: false
+                    statusCode: 401
+                    message: You are not allowed to change the password of the specified User
+        '404': # TODO check if it should be replaced with a 400
+          description: The specified User for which the password should be changed was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                NotFound:
+                  description: The specified User was not found
+                  value:
+                    ok: false
+                    statusCode: 404
+                    message: The specified User was not found
       deprecated: false
 
   /api/user/setting:
     get:
-      # deprecated: false
-      $ref: '#/components/responses/settings'
-
-  /api/user/setting/{settingId}:
-    get:
+      responses:
+        '200':
+          description: Returns all settings for the current User
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SettingModel"
+              examples:
+                Settings:
+                  $ref: "#/components/examples/Settings"
+        '401':
+          description: If no user is logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  $ref: "#/components/examples/NotLoggedIn"
       deprecated: false
     post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/SettingModel"
+            examples:
+              Settings:
+                $ref: "#/components/examples/Settings"
+      responses:
+        '200':
+          description: Is returned when the changes were successfully changed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingModel"
+              examples:
+                Success:
+                  description: Is returned when the changes were successfully changed
+                  value:
+                    ok: true
+                    statusCode: 200
+                    message: All settings have been successfully saved.
+        '401':
+          description: If the current user has no access to the users settings which are currently beeing saved.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  description: The current user is not allowed to save the given settings.
+                  value:
+                    ok: false
+                    statusCode: 401
+                    message: You are not allowed to save these settings.
+        '404': # TODO check if it should be replaced with a 400
+          description: Some settings the user is trying to save, do not exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                NotFound:
+                  description: Some settings the user is trying to save, do not exist
+                  value:
+                    ok: false
+                    statusCode: 404
+                    message: "The following settings you are trying to save, do not exist:\n{settingId[i] + \n}"
       deprecated: false
-    put:
-      deprecated: false
-    delete:
-      deprecated: false
+
+  # /api/user/setting/{settingId}:
+  #   get:
+  #     deprecated: false
 
   /api/user/login:
     post:
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginUserModel"
+            examples:
+              LoginUser:
+                value:
+                  email: "max.mustermann@example.com"
+                  password: strongPassword
+      responses:
+        '200':
+          description: Login successfull
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Success:
+                  value:
+                    ok: true
+                    statusCode: 200
+                    message: You are now logged in.
+        '400': # TODO check if it should be replaced with a 404
+          description: No user with the given credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Bad Request:
+                  value:
+                    ok: false
+                    statusCode: 400
+                    message: No user with the given credentials
       deprecated: false
   /api/user/logout:
     post:
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          required: true
+          allowEmptyValue: false
+          description: The JWT-Token of the current User
+      responses:
+        '200':
+          description: Logged out successfully.
       deprecated: false
 
   /api/channel:
     get:
+      description: Gets all the channels the user has access to
+      responses:
+        '200':
+          description: Returns all Channels the User has access to
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChannelModel"
+              examples:
+                Success:
+                  description: Returns all Channels the User has access to
+                  value:
+                    -
+                      channelId: 666
+                      name: "Big Dick G's"
+                    -
+                      channelId: 110
+                      name: "{User}"
+        '401':
+          description: If the user is not logged in.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseModel"
+              examples:
+                Unauthorized:
+                  $ref: "#/components/examples/NotLoggedIn"
+      deprecated: false
+    post:
       deprecated: false
     put:
       deprecated: false
     delete:
       deprecated: false
 
-  /api/channel/{channelId}:
-    get:
-      deprecated: false
-    post:
+  /api/channel/{channelId}: # Switch protcols to use websockets
+    get: # TODO add websocket callback
+      responses:
+        '101':
+          description: Switches the protocol to use websocket
       deprecated: false
 
 components:
   schemas:
-    setting:
+    UserModel:
       type: object
       required:
-        - key
+        - userId
+        - firstName
+        - lastName
+        - email
+      properties:
+        userId:
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        userName:
+          type: string
+    AddUserModel:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        userName:
+          type: string
+    LoginUserModel:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    ChangePasswordModel:
+      type: object
+      required:
+        - userId
+        - newPassword
+        - oldPassword
+      properties:
+        userId:
+          type: number
+        newPassword:
+          type: string
+        oldPassword:
+          type: string
+    ResponseModel:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        statusCode:
+          type: number
+        message:
+          type: string
+    SettingModel:
+      type: object
+      required:
+        - settingId
         - value
       properties:
-        key:
+        settingId:
           type: string
         value:
+          type: any
+        userId:
+          type: number
+    ChannelModel:
+      type: object
+      properties:
+        channelId:
+          type: number
+        name:
           type: string
-  responses:
-    settings:
-      description: The users settings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/setting'
-
+  examples:
+    User:
+      value:
+        userId: 69420
+        firstName: "Max"
+        lastName: "Mustermann"
+        email: "max.mustermann@example.com"
+    Settings:
+      value:
+        -
+          settingId: anImportendSetting
+          value: Really importend value
+          userId: 69420
+        -
+          settingId: aVeryImportendSetting
+          value: Really importend value2
+          userId: 69420
+    NotLoggedIn:
+      value:
+        ok: false
+        statusCode: 401
+        message: You are not logged in.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      name: Authorization
+      description: The default authorization
