@@ -391,7 +391,8 @@ paths:
                 type: string
               examples:
                 Success:
-                  value: "{JWT-Token}"
+                  value:
+                    bearerToken: "{JWT-Token}"
         '400': # TODO check if it should be replaced with a 404
           description: No user with the given credentials
           content:
@@ -550,6 +551,12 @@ components:
           type: number
         name:
           type: string
+    JwtResponseModel:
+      type: object
+      required:
+        - bearerToken
+      properties:
+        bearerToken: string
   examples:
     User:
       value:
