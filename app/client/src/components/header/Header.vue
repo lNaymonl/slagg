@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header-left">
-              <icon class="header-icon" name="access_time" scale="2"></icon>
+        <icon class="header-icon" name="access_time" scale="2"></icon>
     </div>
     <div class="header-center">
       <icon class="header-icon" name="search" scale="2"></icon>

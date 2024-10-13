@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import Sidebar from './components/sidebar/Sidebar.vue';
+import Header from './components/header/Header.vue';
+</script>
+
 <template>
   <div class="app">
     <!-- Header -->
@@ -13,11 +18,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import Sidebar from './components/sidebar/Sidebar.vue';
-import Header from './components/header/Header.vue';
-</script>
 
 <style scoped lang='scss'>
 .app {

@@ -31,15 +31,9 @@ $theme-colors: map-merge($theme-colors, $colors);
     --sidebar-width: 300px;
 }
 
-button {
-    cursor: pointer;
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-}
-
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;

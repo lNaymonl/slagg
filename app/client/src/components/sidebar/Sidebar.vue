@@ -40,7 +40,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 const isExpanded = ref(localStorage.getItem("isExpanded") === "true")
 const ToggleMenu = () => {
@@ -210,9 +210,19 @@ aside {
             }
         }
 
+
+
         .footer {
             opacity: 0;
         }
+    }
+
+    button {
+        cursor: pointer;
+        appearance: none;
+        border: none;
+        outline: none;
+        background: none;
     }
 
     @media (max-width: 1024px) {
