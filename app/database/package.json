@@ -1,0 +1,19 @@
+{
+  "name": "slagg-database",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "generate": "drizzle-kit generate"
+  },
+  "dependencies": {
+    "drizzle-kit": "^0.25.0"
+  },
+  "devDependencies": {
+    "@libsql/client": "^0.14.0",
+    "@tsconfig/strictest": "^2.0.5",
+    "drizzle-orm": "^0.34.1"
+  }
+}

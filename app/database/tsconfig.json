@@ -1,0 +1,17 @@
+{
+    "extends": "@tsconfig/strictest",
+    "compilerOptions": {
+        "module": "ESNext",
+        "target": "ES2020",
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "outDir": "./dist",
+        "rootDir": "./",
+        "composite": true,
+        "resolveJsonModule": true,
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}
+

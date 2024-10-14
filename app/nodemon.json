@@ -3,7 +3,9 @@
     "exec": "node ./esbuild.mjs && node --enable-source-maps ./dist/index.js",
     "watch": [
         "./server/src/*",
-        "../documents/*"
+        "../documents/*",
+        "./database/*",
+        "./esbuild.mjs"
     ],
     "ext": "ts,json,yaml"
 }
