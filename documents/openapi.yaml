@@ -477,6 +477,8 @@ components:
           required:
             - password
         - $ref: "#/components/schemas/GetUserModel"
+    GetUserModel:
+      type: object
       required:
         - userId
         - firstName
@@ -490,27 +492,6 @@ components:
         lastName:
           type: string
         email:
-          type: string
-        userName:
-          type: string
-    GetUserModel:
-      type: object
-      required:
-        - userId
-        - firstName
-        - lastName
-        - email
-        - password
-      properties:
-        userId:
-          type: number
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        password:
           type: string
         userName:
           type: string
