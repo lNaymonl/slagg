@@ -2,7 +2,7 @@ import { HttpResponseModel } from "@common/models/response";
 import User from "./user.lib";
 
 class HttpClient {
-    public static async apiReq<R, RequestBody = null>(path: string, method: HttpMethod, options?: HttpOptions<RequestBody>): Promise<R | null> {
+    public static async apiReq<R, RequestBody = null>(path: string, method: HttpMethod, options?: HttpOptions<RequestBody>): Promise<R> {
         let response: R | HttpResponseModel;
         try {
             let actualPath: string;
@@ -26,8 +26,8 @@ class HttpClient {
             })).json()) as R | HttpResponseModel;
 
             // TODO somehow fix the error handling and stuff or something. Maybe change every single fucking request to the fucking HttpResponse and add a data property to that type.
-            if (!(response as HttpResponseModel).ok) {
-              return Promise.reject(null);
+            if (!((response as HttpResponseModel)?.ok ?? true)) {
+              return Promise.reject(response);
             }
 
             // console.log(response);
