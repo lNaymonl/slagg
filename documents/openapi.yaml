@@ -467,13 +467,40 @@ paths:
 
 components:
   schemas:
-    UserModel:
+    UserModel: # DATABASE-TABLE # In the actual typescript implementation the `GetUserModel` should be expanded by the `UserModel` and omit the `password` property
+      type: object
+      allOf:
+        - type: object
+          properties:
+            password:
+              type: string
+          required:
+            - password
+        - $ref: "#/components/schemas/GetUserModel"
+      required:
+        - userId
+        - firstName
+        - lastName
+        - email
+      properties:
+        userId: # PK
+          type: number
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        userName:
+          type: string
+    GetUserModel:
       type: object
       required:
         - userId
         - firstName
         - lastName
         - email
+        - password
       properties:
         userId:
           type: number
@@ -482,6 +509,8 @@ components:
         lastName:
           type: string
         email:
+          type: string
+        password:
           type: string
         userName:
           type: string
@@ -532,24 +561,44 @@ components:
           type: number
         message:
           type: string
-    SettingModel:
+    SettingModel: # DATABASE-TABLE
       type: object
       required:
         - settingId
         - value
+        - userId
       properties:
-        settingId:
+        settingId: # PK
           type: string
         value:
           type: any
-        userId:
+        userId: # PK/FK
           type: number
-    ChannelModel:
+    ChannelModel: # DATABASE-TABLE
       type: object
       properties:
-        channelId:
+        channelId: # PK
           type: number
         name:
+          type: string
+        createdAt:
+          type: string # DateTime
+        updatedAt:
+          type: string # DateTime
+    MessageModel: # DATABASE-TABLE
+      type: object
+      properties:
+        messageId: # PK
+          type: string # uuid4
+        channelId: # FK
+          type: number
+        userId: # FK
+          type: number
+        createdAt:
+          type: string # DateTime
+        updatedAt:
+          type: string # DateTime
+        value:
           type: string
     JwtResponseModel:
       type: object
