@@ -1,7 +1,8 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <main class="admin-page">
+    <h1>Admin</h1>
+    <p>This is the admin page.</p>
+  </main>
 </template>
 
 <style>

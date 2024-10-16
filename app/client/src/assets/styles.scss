@@ -1,20 +1,17 @@
-$body-color: #eae9fc; // Foreground color
-$body-bg: #191919;    // Background color
-$primary: #4631af;
-$secondary: #a4285c;
-$accent: #e6990a;
-
-// Define a custom color theme
-$custom-colors: (
-    "body-color": $body-color,
-    "body-bg": $body-bg,
-    "primary": $primary,
-    "secondary": $secondary,
-    "accent": $accent,
+$colors: (
+    "body-color": #eae9fc,
+    "body-bg": #191919,
+    "primary": #cab9cb,
+    "primary-alt": #392e6d,
+    "grey": #64748b,
+    "dark": #4a154b,
+    "dark-alt": #370738,
+    "light": #f1f5f9,
+    "secondary": #5d0f25,
+    "accent": #e6990a,
+    "text-color": #f8f9fa,
 );
 
-// WORKARROUND these are the standard colors of bootstrap
-// To merge them with the custom colors defined above, they have to be redefined here
 $theme-colors: (
     "success": #198754,
     "info": #0dcaf0,
@@ -24,7 +21,23 @@ $theme-colors: (
     "dark": #212529
 );
 
-// Merge the standard bootstrap colors with the custom ones
-$theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors: map-merge($theme-colors, $colors);
+
+:root {
+    @each $name, $color in $colors {
+        --#{$name}: #{$color};
+    }
+    
+    --sidebar-width: 300px;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira sans', sans-serif;
+}
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";
