@@ -8,7 +8,8 @@
         "outDir": "../dist",
         "rootDir": "./",
         "paths": {
-            "@common/*": ["../common/src/*"]
+            "@common/*": ["../common/src/*"],
+            "@database/*": ["../database/src/*"]
         },
         "composite": true,
         "resolveJsonModule": true,
@@ -19,5 +20,8 @@
         "src/**/*.json",
         "src/**/*.d.ts"
     ],
-    "references": [{ "path": "../common" }]
+    "references": [
+        { "path": "../common" },
+        { "path": "../database" },
+    ]
 }
