@@ -10,6 +10,21 @@ $ npm i
 ```
 in the `<rootDir>/app/` directory.
 
+## Change the database schema
+To change the database schema you have to edit, or add, the `*.ts` files at `<rootDir>/app/database/src/schema/`. \
+When you finished implementing the changes, open a terminal under `<rootDir>/app/database/` and run:
+```bash
+$ npm run generate
+```
+This will create every needed file to alter the database scheme. \
+To apply the migration just start the `Server`.
+> **WARNING: Please try to avoid using the manual option! It could break the database and lead to unexpected behaviour**
+
+You can also run the migration process manually by running:
+```bash
+$ npx drizzle-kit migrate
+```
+
 ## Run the app in dev mode
 Open two terminals and navigate to the `<rootDir>/app/` directory:
 ```bash

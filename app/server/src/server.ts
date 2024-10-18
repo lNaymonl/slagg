@@ -53,4 +53,6 @@ if (production) {
     })
 }
 
-export default server;
+export {
+    server
+};

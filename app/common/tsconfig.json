@@ -6,6 +6,12 @@
         "module": "ESNext",
         "outDir": "./dist",
         "rootDir": "./src",
-        "composite": true
+        "composite": true,
+        "paths": {
+            "@database/*": ["../database/src/*"]
+        }
     },
+    "references": [
+        { "path": "../database" },
+    ]
 }

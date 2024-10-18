@@ -386,15 +386,13 @@ paths:
         '200':
           description: Login successfull
           content:
-            application/json:
+            text/plain:
               schema:
-                $ref: "#/components/schemas/ResponseModel"
+                type: string
               examples:
                 Success:
                   value:
-                    ok: true
-                    statusCode: 200
-                    message: You are now logged in.
+                    bearerToken: "{JWT-Token}"
         '400': # TODO check if it should be replaced with a 404
           description: No user with the given credentials
           content:
@@ -469,7 +467,17 @@ paths:
 
 components:
   schemas:
-    UserModel:
+    UserModel: # DATABASE-TABLE # In the actual typescript implementation the `GetUserModel` should be expanded by the `UserModel` and omit the `password` property
+      type: object
+      allOf:
+        - type: object
+          properties:
+            password:
+              type: string
+          required:
+            - password
+        - $ref: "#/components/schemas/GetUserModel"
+    GetUserModel:
       type: object
       required:
         - userId
@@ -477,7 +485,7 @@ components:
         - lastName
         - email
       properties:
-        userId:
+        userId: # PK
           type: number
         firstName:
           type: string
@@ -534,25 +542,51 @@ components:
           type: number
         message:
           type: string
-    SettingModel:
+    SettingModel: # DATABASE-TABLE
       type: object
       required:
         - settingId
         - value
+        - userId
       properties:
-        settingId:
+        settingId: # PK
           type: string
         value:
           type: any
-        userId:
+        userId: # PK/FK
           type: number
-    ChannelModel:
+    ChannelModel: # DATABASE-TABLE
       type: object
       properties:
-        channelId:
+        channelId: # PK
           type: number
         name:
           type: string
+        createdAt:
+          type: string # DateTime
+        updatedAt:
+          type: string # DateTime
+    MessageModel: # DATABASE-TABLE
+      type: object
+      properties:
+        messageId: # PK
+          type: string # uuid4
+        channelId: # FK
+          type: number
+        userId: # FK
+          type: number
+        createdAt:
+          type: string # DateTime
+        updatedAt:
+          type: string # DateTime
+        value:
+          type: string
+    JwtResponseModel:
+      type: object
+      required:
+        - bearerToken
+      properties:
+        bearerToken: string
   examples:
     User:
       value:
