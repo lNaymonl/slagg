@@ -20,8 +20,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name != "Login" && !User.getUser()) next({ name: "Login" });
-  else if (to.name == "Login" && User.getUser()) next({ name: "Home" });
+  if (to.name != "Login" && User.isExpired()) next({ name: "Login" });
+  else if (to.name == "Login" && !User.isExpired()) next({ name: "Home" });
   else next();
 });
 
