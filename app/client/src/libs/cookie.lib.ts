@@ -1,4 +1,4 @@
-export class CoockieLib {
+export class CookieLib {
     public static getCookies(): Cookie[] {
         // The cookies are returned in the following format: `key1=value1; key2=value2`
         // So they have to be split before they can be worked with
@@ -22,6 +22,12 @@ export class CoockieLib {
         cookies.forEach(cookie => {
             this.setCookie(cookie);
         });
+    }
+    public static removeCookie(key: string) {
+        const cookie = this.getCookie(key);
+        if (cookie == undefined) return;
+
+        document.cookie = `${cookie.key}=${cookie.value};expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
     }
 }
 
