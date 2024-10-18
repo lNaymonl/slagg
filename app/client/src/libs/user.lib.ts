@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
-import type { LoginUserModel, UserModel } from "@common/models/user";
-import { CoockieLib } from "./cookie.lib";
+import type { JwtUserModel, LoginUserModel } from "@common/models/user";
+import { CookieLib } from "./cookie.lib";
 import HttpClient from "./httpClient.lib";
 import { type JwtResponseModel } from "@common/models/response";
 
@@ -9,26 +9,37 @@ class User {
     private static readonly COOKIE_KEY = "BearerToken";
     
     private static SetToken(bearerToken: string): void {
-        CoockieLib.setCookie({ key: this.COOKIE_KEY, value: bearerToken });
+        CookieLib.setCookie({ key: this.COOKIE_KEY, value: bearerToken });
     }
     
     public static getToken(): string | null {
-        return CoockieLib.getCookie(this.COOKIE_KEY)?.value ?? null;
+        return CookieLib.getCookie(this.COOKIE_KEY)?.value ?? null;
     }
 
-    public static getUser(): UserModel | null {
+    public static getUser(): JwtUserModel | null {
         const token = this.getToken();
         if (!token || token.length == 0) return null;
 
         let jwtToken;
         try {
-            jwtToken = jwtDecode<UserModel>(token);
+            jwtToken = jwtDecode<JwtUserModel>(token);
+            jwtToken.exp = new Date(jwtToken.exp); // jwtDecode() is not able to parse a date
         } catch (error) {
             console.error(error);
             return null;
         }
         
         return jwtToken;
+    }
+
+    public static isExpired(): boolean {
+        const user = this.getUser();
+        if (!user) return true;
+        if (user.exp < new Date()) {
+            CookieLib.removeCookie(this.COOKIE_KEY);
+            return true;
+        }
+        return false;
     }
 
     public static async login(user: LoginUserModel): Promise<string> {
@@ -60,6 +71,8 @@ class User {
             console.error("There is no user logged in!");
             return;
         }
+
+        CookieLib.removeCookie(this.COOKIE_KEY);
 
         try {
             await HttpClient.apiReq("/api/user/logout", "POST");
