@@ -10,3 +10,7 @@ export interface UserModel {
     email: string;
     userName?: string;
 }
+
+export interface JwtUserModel extends UserModel {
+    exp: Date;
+}
