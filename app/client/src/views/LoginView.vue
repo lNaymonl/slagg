@@ -67,16 +67,11 @@ function loginUser() {
 </script>
 
 <template>
-  <div style="min-width: 100vw; min-height: 100vh; overflow: hidden" class="position-relative">
+  <div style="min-width: 100vw; min-height: 100vh; overflow: hidden" class="d-flex justify-content-center align-items-center">
+    <!-- TODO change sizing of the form -->
     <form
       ref="form"
-      class="login-form bg-secondary rounded needs-validation container p-3"
-      :style="{
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-      }"
+      class="login-form bg-secondary rounded needs-validation container p-3 mx-5"
       @submit.prevent
       @submit="loginUser()"
       novalidate
