@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref, useTemplateRef, type Ref } from "vue";
+import { ref, useTemplateRef, type Ref } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 import User from "@/libs/user.lib";
 import type { HttpResponseModel } from "@common/models/response";
 import type { LoginUserModel } from "@common/models/user";
+import router from "@/router";
 
 const user: LoginUserModel = {
   email: "",
@@ -40,119 +41,116 @@ function validatePassword() {
   };
 }
 
-// TODO implement propper emitting
-function loginUser() {
-  User.login(user)
-    .then(console.log)
-    .catch((e: HttpResponseModel) => {
-      console.log(user);
-      error.value = e;
-    });
-}
-
-function test(e: Event) {
-  e.preventDefault();
-  e.stopPropagation();
-}
-
 const form = useTemplateRef("form");
+const emitter = defineEmits<{
+  loggedIn: []
+}>();
 
-onMounted(() => {
-  if (form.value) {
-    form.value.addEventListener(
-      "submit",
-      (ev) => {
-        if (!form.value!.checkValidity()) {
-          ev.preventDefault();
-          ev.stopPropagation();
-        }
-
-        form.value!.classList.add("was-validated");
-      },
-      false
-    );
+function loginUser() {
+  if (form.value?.checkValidity()) {
+    User.login(user)
+      .then(() => {
+        form.value?.classList.add("logged-in"); // Start the animation to blend out the login page
+        emitter("loggedIn");
+        if (User.isExpired()) {
+          throw new Error("The token provided by the server is expired.");
+        } else router.push("/");
+        router.clearRoutes();
+      })
+      .catch((e: HttpResponseModel) => {
+        console.log(user);
+        error.value = e;
+      });
   }
-});
+  form.value?.classList.add("was-validated"); // Add the "was-validated" class so the bootstrap feedback is shown
+}
 </script>
 
 <template>
-  <form
-    ref="form"
-    class="bg-secondary rounded needs-validation container p-3"
-    style="min-width: fit-content"
-    novalidate
-    v-on:submit="test"
-  >
-    <div class="row row-cols-auto justify-content-center">
-      <div class="col">
-        <img
-          src="/Slagg_Logo_Alt_Bright.ico"
-          alt="Application Logo"
-          class="rounded-4 bg-body"
-          width="64px"
-          height="64px"
-        />
+  <div style="min-width: 100vw; min-height: 100vh; overflow: hidden" class="position-relative">
+    <form
+      ref="form"
+      class="login-form bg-secondary rounded needs-validation container p-3"
+      :style="{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
+      }"
+      @submit.prevent
+      @submit="loginUser()"
+      novalidate
+    >
+      <div class="row row-cols-auto justify-content-center">
+        <div class="col">
+          <img
+            src="/Slagg_Logo_Alt_Bright.ico"
+            alt="Application Logo"
+            class="rounded-4 bg-body"
+            width="64px"
+            height="64px"
+          />
+        </div>
       </div>
-    </div>
-    <div class="row row-cols-auto justify-content-center">
-      <div class="col">
-        <h1>Login</h1>
+      <div class="row row-cols-auto justify-content-center">
+        <div class="col">
+          <h1>Login</h1>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="email-input" class="form-label">Email</label>
-        <input
-          id="email-input"
-          type="email"
-          class="bg-white form-control text-black"
-          aria-label="Email"
-          v-model="user.email"
-          required
-        />
-        <div class="invalid-feedback">
-          <div class="d-flex align-items-center gap-1 ps-2">
-            <FontAwesomeIcon :icon="faTriangleExclamation" />
-            <p>Please provide a password that is at least 8 characters long.</p>
+      <div class="row">
+        <div class="col">
+          <label for="email-input" class="form-label">Email</label>
+          <input
+            id="email-input"
+            type="email"
+            class="bg-white form-control text-black"
+            aria-label="Email"
+            v-model="user.email"
+            required
+            autofocus
+          />
+          <div class="invalid-feedback">
+            <div class="d-flex align-items-center gap-1 ps-2">
+              <FontAwesomeIcon :icon="faTriangleExclamation" />
+              <p>Please provide a valid email-adress</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="password-input" class="form-label">Email</label>
-        <input
-          id="password-input"
-          type="password"
-          class="bg-white form-control text-black"
-          aria-label="Password"
-          v-model="user.password"
-          required
-          minlength="8"
-          :pattern="CHECK_ALL_REGEX.source"
-          @change="validatePassword"
-        />
-        <div class="invalid-feedback">
-          <div class="d-flex align-items-center gap-1 ps-2">
-            <FontAwesomeIcon :icon="faTriangleExclamation" />
-            <p>Please provide a password that is at least 8 characters long.</p>
+      <div class="row">
+        <div class="col">
+          <label for="password-input" class="form-label">Email</label>
+          <input
+            id="password-input"
+            type="password"
+            class="bg-white form-control text-black"
+            aria-label="Password"
+            v-model="user.password"
+            required
+            minlength="8"
+          />
+          <div class="invalid-feedback">
+            <div class="d-flex align-items-center gap-1 ps-2">
+              <FontAwesomeIcon :icon="faTriangleExclamation" />
+              <p>Please provide a valid password (min. 8 characters)</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div style="height: 32px">
-      <div
-        v-if="error !== null"
-        class="text-danger d-flex flex-row align-items-center gap-1 bg-white px-2 py-1 rounded"
-      >
-        <FontAwesomeIcon :icon="faTriangleExclamation" />
-        <p>{{ error.message }}</p>
+      <div style="height: 32px" class="my-1 row justify-content-center">
+        <div
+          v-if="error !== null"
+          class="text-danger d-flex flex-row align-items-center gap-1 bg-white px-2 py-1 rounded col-auto"
+        >
+          <FontAwesomeIcon :icon="faTriangleExclamation" />
+          <p>{{ error.message }}</p>
+        </div>
       </div>
-    </div>
-    <div class="input-group d-flex justify-content-center">
-      <button type="submit" class="btn btn-primary w-50">Login</button>
-    </div>
-  </form>
+      <div class="input-group d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary w-50">Login</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -165,7 +163,4 @@ onMounted(() => {
 p {
   margin: 0;
 }
-// .input-group {
-//   width: 75%;
-// }
 </style>

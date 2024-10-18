@@ -30,7 +30,7 @@ router.post("/login", (req, res) => {
     console.log(req.body);
     if (req.body.email == "abc@a.b" && req.body.password == "hehe") {
         const response: JwtResponseModel = {
-            bearerToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImZpcnN0TmFtZSI6IkVsbW8iLCJsYXN0TmFtZSI6IkhlaW5lIiwiZW1haWwiOiJlbG1vLmhlaW5lQHdlYi5kZSIsInVzZXJOYW1lIjpudWxsfQ.Wyxw97z_oiXrzifjwmVXNB8UM3hLC-daFWdbKoBijwI"
+            bearerToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImZpcnN0TmFtZSI6IkVsbW8iLCJsYXN0TmFtZSI6IkhlaW5lIiwiZW1haWwiOiJlbG1vLmhlaW5lQHdlYi5kZSIsInVzZXJOYW1lIjpudWxsLCJleHAiOiIyMDI0LTEwLTE3VDIyOjAwOjAwLjAwMFoifQ.Gp56_5QmvQib2iQs1KhHVLTL2Ul_4sVlxRz_W5LmP7k"
         };
         res.json(response);
     } else {
