@@ -10,7 +10,7 @@ paths:
   /api/user:
     get:
       responses:
-        '200':
+        "200":
           description: Returns all users the current User has access to.
           content:
             application/json:
@@ -21,12 +21,11 @@ paths:
               examples:
                 Users:
                   value:
-                    -
-                      userId: 69420
+                    - userId: 69420
                       firstName: "Max"
                       lastName: "Mustermann"
                       email: "max.mustermann@example.com"
-        '401':
+        "401":
           description: Returned when no login is detected.
           content:
             application/json:
@@ -47,7 +46,7 @@ paths:
                 description: The requested User with the given `userId`.
                 $ref: "#/components/examples/User"
       responses:
-        '200':
+        "200":
           description: The update of the User succeeded
           content:
             application/json:
@@ -60,7 +59,7 @@ paths:
                     ok: true
                     statusCode: 200
                     message: "Updating User: `userId` was successfull"
-        '401':
+        "401":
           description: The current User has no access to the requested User
           content:
             application/json:
@@ -73,7 +72,7 @@ paths:
                     ok: false
                     statusCode: 401
                     message: "You dont have access to the User: `userId`"
-        '404': # TODO check if it should be replaced with a 400
+        "404": # TODO check if it should be replaced with a 400
           description: The User to update does not exist
           content:
             application/json:
@@ -102,7 +101,7 @@ paths:
                   firstName: "Max"
                   lastName: "Mustermann"
                   email: "max.mustermann@example.com"
-      '201':
+      "201":
         description: Adding the user was successfull
         content:
           application/json:
@@ -112,7 +111,7 @@ paths:
               User:
                 description: The requested User with the given `userId`.
                 $ref: "#/components/examples/User"
-      '401':
+      "401":
         description: No right to add a User
         content:
           application/json:
@@ -125,7 +124,7 @@ paths:
                   ok: false
                   statusCode: 401
                   message: You are not allowed to create new Users.
-      '409':
+      "409":
         description: Indicates that the User has already been created.
         content:
           application/json:
@@ -150,7 +149,7 @@ paths:
         allowEmptyValue: false
     get:
       responses:
-        '200':
+        "200":
           description: Gets the specified user
           content:
             application/json:
@@ -160,7 +159,7 @@ paths:
                 User:
                   description: The requested User with the given `userId`.
                   $ref: "#/components/examples/User"
-        '401':
+        "401":
           description: If the current user can't access the requested user
           content:
             application/json:
@@ -169,11 +168,11 @@ paths:
               examples:
                 ErrorModel:
                   description: The Error Model that is returned when the current User has no access to the requested User.
-                  value: 
+                  value:
                     ok: false
                     statusCode: 401
                     message: "Requested User: {userId} is not accessible to the current User."
-        '404': # TODO check if it should be replaced with a 400
+        "404": # TODO check if it should be replaced with a 400
           description: Is returned when the User with the given `userId` is not found.
           content:
             application/json:
@@ -191,7 +190,7 @@ paths:
       security:
         - BearerAuth: [Admin]
       responses:
-        '200':
+        "200":
           description: The User was deleted successfully
           content:
             application/json:
@@ -204,7 +203,7 @@ paths:
                     ok: true
                     statusCode: 200
                     message: The User was deleted successfully
-      '401': # TODO is this really nessecary? The authentication middleware should already catch this
+      "401": # TODO is this really nessecary? The authentication middleware should already catch this
         description: The current User is not allowed to delete other Users
         content:
           application/json:
@@ -217,7 +216,7 @@ paths:
                   ok: false
                   statusCode: 401
                   message: You are not allowed to delete this User
-      '404': # TODO check if it should be replaced with a 400
+      "404": # TODO check if it should be replaced with a 400
         description: The User to delete was not found
         content:
           application/json:
@@ -247,7 +246,7 @@ paths:
                   oldPassword: strongPassword
                   newPassword: verystrongPassword
       responses:
-        '200':
+        "200":
           description: The password change was successfull
           content:
             application/json:
@@ -260,7 +259,7 @@ paths:
                     ok: true
                     statusCode: 200
                     message: The password change was successfull
-        '401':
+        "401":
           description: If the current User is not allowed to change the password of the specified User
           content:
             application/json:
@@ -273,7 +272,7 @@ paths:
                     ok: false
                     statusCode: 401
                     message: You are not allowed to change the password of the specified User
-        '404': # TODO check if it should be replaced with a 400
+        "404": # TODO check if it should be replaced with a 400
           description: The specified User for which the password should be changed was not found
           content:
             application/json:
@@ -291,7 +290,7 @@ paths:
   /api/user/setting:
     get:
       responses:
-        '200':
+        "200":
           description: Returns all settings for the current User
           content:
             application/json:
@@ -302,7 +301,7 @@ paths:
               examples:
                 Settings:
                   $ref: "#/components/examples/Settings"
-        '401':
+        "401":
           description: If no user is logged in
           content:
             application/json:
@@ -324,7 +323,7 @@ paths:
               Settings:
                 $ref: "#/components/examples/Settings"
       responses:
-        '200':
+        "200":
           description: Is returned when the changes were successfully changed
           content:
             application/json:
@@ -337,7 +336,7 @@ paths:
                     ok: true
                     statusCode: 200
                     message: All settings have been successfully saved.
-        '401':
+        "401":
           description: If the current user has no access to the users settings which are currently beeing saved.
           content:
             application/json:
@@ -350,7 +349,7 @@ paths:
                     ok: false
                     statusCode: 401
                     message: You are not allowed to save these settings.
-        '404': # TODO check if it should be replaced with a 400
+        "404": # TODO check if it should be replaced with a 400
           description: Some settings the user is trying to save, do not exist
           content:
             application/json:
@@ -383,7 +382,7 @@ paths:
                   email: "max.mustermann@example.com"
                   password: strongPassword
       responses:
-        '200':
+        "200":
           description: Login successfull
           content:
             application/json:
@@ -395,7 +394,7 @@ paths:
                     ok: true
                     statusCode: 200
                     message: You are now logged in.
-        '400': # TODO check if it should be replaced with a 404
+        "400": # TODO check if it should be replaced with a 404
           description: No user with the given credentials
           content:
             application/json:
@@ -419,7 +418,7 @@ paths:
           allowEmptyValue: false
           description: The JWT-Token of the current User
       responses:
-        '200':
+        "200":
           description: Logged out successfully.
       deprecated: false
 
@@ -427,7 +426,7 @@ paths:
     get:
       description: Gets all the channels the user has access to
       responses:
-        '200':
+        "200":
           description: Returns all Channels the User has access to
           content:
             application/json:
@@ -437,13 +436,11 @@ paths:
                 Success:
                   description: Returns all Channels the User has access to
                   value:
-                    -
-                      channelId: 666
+                    - channelId: 666
                       name: "Big Dick G's"
-                    -
-                      channelId: 110
+                    - channelId: 110
                       name: "{User}"
-        '401':
+        "401":
           description: If the user is not logged in.
           content:
             application/json:
@@ -463,7 +460,7 @@ paths:
   /api/channel/{channelId}: # Switch protcols to use websockets
     get: # TODO add websocket callback
       responses:
-        '101':
+        "101":
           description: Switches the protocol to use websocket
       deprecated: false
 
@@ -546,6 +543,15 @@ components:
           type: any
         userId:
           type: number
+        settingInputType:
+          type: string
+          enum:
+            - text
+            - dropdown
+            - checkbox
+            - radio
+            - number
+            - datetime
     ChannelModel:
       type: object
       properties:
@@ -562,12 +568,10 @@ components:
         email: "max.mustermann@example.com"
     Settings:
       value:
-        -
-          settingId: anImportendSetting
+        - settingId: anImportendSetting
           value: Really importend value
           userId: 69420
-        -
-          settingId: aVeryImportendSetting
+        - settingId: aVeryImportendSetting
           value: Really importend value2
           userId: 69420
     NotLoggedIn:
