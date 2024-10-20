@@ -2,9 +2,9 @@ import { Router } from 'express';
 import { drizzle } from 'drizzle-orm/connect';
 import { usersTable } from '@database/schema/user';
 
-const router = Router();
+const postuserRouter = Router();
 
-router.post("/", async (req, res) => {
+postuserRouter.post("/", async (req, res) => {
     const userData = req.body;
 
     if (!userData.firstName || !userData.lastName || !userData.email || !userData.password) {
@@ -28,4 +28,4 @@ router.post("/", async (req, res) => {
     }
 });
 
-export default router;
+export default postuserRouter;
