@@ -15,6 +15,8 @@ postsettingsRouter.post("/", async (req, res) => {
         const db = await drizzle("libsql", process.env["DB_FILE_NAME"]!);
         const postsetting = await db.insert(settingsTable).values({
             settingId: settingsData.settingId,
+            settingName: settingsData.settingName,
+            settinginputType: settingsData.settingInputType,
             value: settingsData.value,
             userId: settingsData.userId,
         });
