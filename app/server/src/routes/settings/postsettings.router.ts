@@ -7,7 +7,7 @@ const postsettingsRouter = Router();
 postsettingsRouter.post("/", async (req, res) => {
     const settingsData = req.body;
 
-    if (!settingsData.settingId || !settingsData.value || !settingsData.userId) {
+    if (!settingsData.settingId || !settingsData.settingName || !settingsData.settinginputType || !settingsData.value || !settingsData.userId) {
         return res.status(400).send({ message: "Missing required fields" });
     }
 
@@ -16,7 +16,7 @@ postsettingsRouter.post("/", async (req, res) => {
         const postsetting = await db.insert(settingsTable).values({
             settingId: settingsData.settingId,
             settingName: settingsData.settingName,
-            settinginputType: settingsData.settingInputType,
+            settinginputType: settingsData.settinginputType,
             value: settingsData.value,
             userId: settingsData.userId,
         });
