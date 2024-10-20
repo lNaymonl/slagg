@@ -12,7 +12,7 @@ const io = new Server(server);
 
 const production = process.env["NODE_ENV"] == "production";
 
-const CLIENT_REGEX = /^\/(?!api|ws|docs).*/;
+const CLIENT_REGEX = /^\/(?!api|ws|docs|favicon.ico).*/;
 
 // Swagger Mapping
 import swaggerUi from "swagger-ui-express";
@@ -21,6 +21,8 @@ import apiDef from "../../../documents/openapi.yaml";
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(apiDef));
 
 // API Mapping
+
+app.use(express.json()); 
 import apiRouter from "./routes/api.router";
 app.use("/api", apiRouter);
 
