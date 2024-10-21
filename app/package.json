@@ -13,15 +13,18 @@
   "workspaces": [
     "client",
     "server",
-    "common"
+    "common",
+    "database"
   ],
   "dependencies": {
     "slagg-client": "latest",
     "slagg-common": "latest",
+    "slagg-database": "latest",
     "slagg-server": "latest"
   },
   "devDependencies": {
     "esbuild": "^0.24.0",
+    "esbuild-plugin-copy": "^2.1.1",
     "esbuild-plugin-yaml": "^0.0.1",
     "nodemon": "^3.1.7",
     "rimraf": "^6.0.1",

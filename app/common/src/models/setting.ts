@@ -1,11 +1,12 @@
 export interface SettingModel {
     settingId: string;
+    settingName: string;
+    settingInputType: string;
     value: string;
-    settingInputType: SettingInputType;
     userId: number;
 };
 
-export enum SettingInputType {
+export enum settingInputType {
     text,
     dropdown,
     checkbox,

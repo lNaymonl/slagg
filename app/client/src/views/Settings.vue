@@ -1,73 +1,36 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-// import HttpClient from './libs/httpClient.lib.ts';
 
 const items = ref([
-  {
-    settingId: "themePreference",
-    settingName: "Theme Preference",
-    value: "Dark Mode",
-    userId: 12345,
-    SettingInputType: "select",
-    options: ["Dark Mode", "Light Mode", "System Default"]
-  },
-  {
-    settingId: "aCheckBox",
-    settingName: "A Check Box",
-    value: 1,
-    userId: 12345,
-    SettingInputType: "checkbox"
-  },
-  {
-    settingId: "anotherCheckBox",
-    settingName: "Another Check Box",
-    value: 0,
-    userId: 12345,
-    SettingInputType: "checkbox"
-  },
-  {
-    settingId: "languagePreference",
-    settingName: "Language Preference",
-    value: "English",
-    userId: 12345,
-    SettingInputType: "select",
-    options: ["English", "Spanish", "German", "French"]
-  },
-  {
-    settingId: "notificationFrequency",
-    settingName: "Notification Frequency",
-    value: "daily",
-    userId: 12345,
-    SettingInputType: "radio",
-    options: ["hourly", "daily", "weekly"]
-  },
-  {
-    settingId: "fontSize",
-    settingName: "Font Size",
-    value: 14,
-    userId: 12345,
-    SettingInputType: "number",
-    min: 8,
-    max: 32
-  },
-  {
-    settingId: "aboutUser",
-    settingName: "About User",
-    value: "",
-    userId: 12345,
-    SettingInputType: "textarea"
-  }
+  // Example default items can go here if needed
 ]);
 
-// Fetch items from API using HttpClient
+// Fetch items from API using Fetch
 const fetchItems = async () => {
+  const userId = 1;
   try {
-    const response = await HttpClient.apiReq('user/setting', 'GET');
-    items.value = response;
+    const response = await fetch(`/api/settings/getsettings?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();  // Parse the JSON response directly
+    items.value = data;  // Update items with the fetched array of settings
+    console.log('Fetched items:', items.value);
   } catch (error) {
-    console.error('Error fetching items:', error);
+    console.error('Error fetching items:', error.message);
   }
 };
+
+
+
+
 
 onMounted(() => {
   fetchItems();
@@ -83,7 +46,7 @@ onMounted(() => {
         <div class="card bg-primary-alt text-light p-3 shadow-sm">
           <div class="card-body">
             <!-- Text Input -->
-            <div v-if="item.SettingInputType === 'text'" class="form-group">
+            <div v-if="item.settingInputType === 'text'" class="form-group">
               <label :for="'setting-' + item.settingId" class="form-label">
                 {{ item.settingName }}
               </label>
@@ -96,7 +59,7 @@ onMounted(() => {
             </div>
 
             <!-- Checkbox Input -->
-            <div v-else-if="item.SettingInputType === 'checkbox'" class="form-check">
+            <div v-else-if="item.settingInputType === 'checkbox'" class="form-check">
               <input
                 type="checkbox"
                 class="form-check-input"
@@ -111,7 +74,7 @@ onMounted(() => {
             </div>
 
             <!-- Select Input -->
-            <div v-else-if="item.SettingInputType === 'select'" class="form-group">
+            <div v-else-if="item.settingInputType === 'select'" class="form-group">
               <label :for="'setting-' + item.settingId" class="form-label">
                 {{ item.settingName }}
               </label>
@@ -121,7 +84,7 @@ onMounted(() => {
             </div>
 
             <!-- Radio Buttons -->
-            <div v-else-if="item.SettingInputType === 'radio'" class="form-group">
+            <div v-else-if="item.settingInputType === 'radio'" class="form-group">
               <label>{{ item.settingName }}</label>
               <div v-for="option in item.options" :key="option" class="form-check">
                 <input
@@ -136,7 +99,7 @@ onMounted(() => {
             </div>
 
             <!-- Number Input -->
-            <div v-else-if="item.SettingInputType === 'number'" class="form-group">
+            <div v-else-if="item.settingInputType === 'number'" class="form-group">
               <label :for="'setting-' + item.settingId" class="form-label">
                 {{ item.settingName }}
               </label>
@@ -150,7 +113,7 @@ onMounted(() => {
             </div>
 
             <!-- Textarea Input -->
-            <div v-else-if="item.SettingInputType === 'textarea'" class="form-group">
+            <div v-else-if="item.settingInputType === 'textarea'" class="form-group">
               <label :for="'setting-' + item.settingId" class="form-label">{{ item.settingName }}</label>
               <textarea class="form-control" v-model="item.value" :rows="5"></textarea>
             </div>
