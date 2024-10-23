@@ -3,3 +3,6 @@
 
 # Compiled files
 dist
+app/.idea/
+
+.idea/

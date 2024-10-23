@@ -22,6 +22,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(apiDef));
 
 // API Mapping
 import apiRouter from "./routes/api.router";
+app.use(express.json());
 app.use("/api", apiRouter);
 
 // TODO add the websocket using socket.io
