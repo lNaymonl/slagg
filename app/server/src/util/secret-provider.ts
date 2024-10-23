@@ -46,10 +46,13 @@ function ensureKeyFilesExist(): void {
 
 export function getPrivateKey() : string {
     ensureKeyFilesExist();
-    return fs.readFileSync(privateKeyPath);
+    const buffer = fs.readFileSync(privateKeyPath);
+    return buffer.toString();
 }
+   
 
 export function getPublicKey() : string {
     ensureKeyFilesExist();
-    return fs.readFileSync(publicKeyPath);
+    const buffer = fs.readFileSync(publicKeyPath);
+    return buffer.toString();
 }
