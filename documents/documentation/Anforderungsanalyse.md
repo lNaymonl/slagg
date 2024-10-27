@@ -1,6 +1,6 @@
 ### **Anforderungsanalyse**
 
-Die Anforderungen an das On-Premise-Chat-Tool umfassen sowohl funktionale als auch sicherheitsrelevante Aspekte, die den Betrieb innerhalb des hochsicheren Netzwerks des Kunden ermöglichen. Diese Anforderungen basieren auf der Notwendigkeit, sensible Daten zu schützen und dem Wunsch des Kunden, eine zuverlässige und benutzerfreundliche Kommunikationsplattform für interne Zwecke zu entwickeln.
+Die Anforderungen an das On-Premise Chat-Tool umfassen sowohl funktionale als auch sicherheitsrelevante Aspekte, die den Betrieb innerhalb des hochsicheren Netzwerks des Kunden ermöglichen. Diese Anforderungen basieren auf der Notwendigkeit, sensible Daten zu schützen und dem Wunsch des Kunden, eine zuverlässige und benutzerfreundliche Kommunikationsplattform für interne Zwecke zu entwickeln.
 
 #### **Funktionale Anforderungen**
 
