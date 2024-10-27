@@ -24,7 +24,7 @@ Das Tool muss eine Reihe von Schlüsselfunktionen bieten, um die internen Kommun
 6. **Webbrowser-Kompatibilität**:
    Das Tool sollte mit allen modernen Browsern voll kompatibel sein.
 
-#### \*\*Sicherheitsanforderungen
+#### Sicherheitsanforderungen
 
 1. **Keine externen Verbindungen**:
    Da das Tool mit hochsensiblen Daten arbeitet, sind keine Verbindungen zu externen Servern erlaubt. Alle Informationen bleiben strikt innerhalb des lokalen Netzwerks und werden nicht nach außen übertragen.
