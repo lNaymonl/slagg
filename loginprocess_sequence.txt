@@ -1,0 +1,49 @@
+title  Login Slagg
+
+participant Client
+participant Server
+participant Database
+
+
+Client->Server: send login request
+
+activate Server
+activate Client
+
+Server->Database: get credentials
+
+activate Database
+
+
+group #2f2e7b login success #white [validation = success]
+Database->Server: return credentials
+
+deactivate Database
+Server->Server: validate credentials
+Server->Server: generate JWT
+
+Server->Client: return JWT
+
+deactivate Server
+deactivate Client
+
+end
+
+
+group #2f2e7b login failed #white [validation = failed]
+
+activate Client
+activate Server
+activate Database
+
+Database->Server: return credentials
+deactivate Database
+
+Server->Server: validate credentials
+
+Server->Client: return to login screen
+
+deactivate Server
+deactivate Client
+
+end

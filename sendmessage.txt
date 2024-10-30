@@ -1,0 +1,21 @@
+title sending a message
+
+participant Client
+participant Server
+participant Database
+
+Client->Server: show settings
+activate Client
+activate Server
+Server->Database: get settings
+activate Database
+Database->Server: return settings
+deactivate Database
+Server->Client: show settings
+deactivate Server
+deactivate Client
+
+Client->Server: change settings
+activate Client
+activate Server
+Server->Databa
