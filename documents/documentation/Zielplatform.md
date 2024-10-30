@@ -6,7 +6,7 @@ Die Zielplattform für das On-Premise Chat-Tool soll den sicheren und reibungslo
 
 - **Server**: Ein leistungsfähiger Server, der mehrere gleichzeitige Nutzer und die laufende Datenverarbeitung unterstützt (z. B. Datenbankabfragen und Nachrichtenaustausch).
 - **Netzwerk**: Server und Clients sind vollständig ins interne Netzwerk eingebunden, was Sicherheit und Geschwindigkeit garantiert.
-- **Speicherplatz**: Genug Kapazität für die Datenbank und Protokolle, um alle Nachrichten und Nutzerinformationen lokal zu speichern.
+- **Speicherplatz**: Genug Kapazität für die Datenbank und Logs, um alle Nachrichten und Nutzerinformationen lokal zu speichern.
 
 #### **Softwareanforderungen**
 
