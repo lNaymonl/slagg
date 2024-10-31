@@ -1,49 +1,28 @@
-title  Login Slagg
+title showing/changing settings
 
 participant Client
 participant Server
 participant Database
 
-
-Client->Server: send login request
-
-activate Server
+Client->Server: GET /settings
 activate Client
-
-Server->Database: get credentials
-
+activate Server
+Server->Database: get settings
 activate Database
-
-
-group #2f2e7b login success #white [validation = success]
-Database->Server: return credentials
-
+Database-->Server: return settings
 deactivate Database
-Server->Server: validate credentials
-Server->Server: generate JWT
-
-Server->Client: return JWT
-
+Server-->Client: 200 OK - display settings
 deactivate Server
 deactivate Client
 
-end
 
-
-group #2f2e7b login failed #white [validation = failed]
-
+Client->Server: POST /settings
 activate Client
 activate Server
+Server->Database: save settings
 activate Database
-
-Database->Server: return credentials
+Database-->Server: settings saves successfully
 deactivate Database
-
-Server->Server: validate credentials
-
-Server->Client: return to login screen
-
+Server-->Client: 200 OK - settings saved
 deactivate Server
 deactivate Client
-
-end

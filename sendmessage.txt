@@ -4,18 +4,31 @@ participant Client
 participant Server
 participant Database
 
-Client->Server: show settings
-activate Client
-activate Server
-Server->Database: get settings
-activate Database
-Database->Server: return settings
-deactivate Database
-Server->Client: show settings
-deactivate Server
-deactivate Client
+Client->Server: POST /message
 
-Client->Server: change settings
 activate Client
 activate Server
-Server->Databa
+
+Server->Database: get forbidden words
+activate Database
+Database-->Server: return forbidden words
+deactivate Database
+
+Server->Server: check for forbidden words
+activate Server
+alt
+deactivate Server
+
+alt no forbidden words found
+
+Server->Database: save message
+activate Database
+Database-->Server: saved succesfully
+deactivate Database
+Server-->Client: 200 OK - message success
+else forbidden words found
+Server-->Client: 406 not acceptable - message failed
+end
+alt
+deactivate Client
+deactivate Server

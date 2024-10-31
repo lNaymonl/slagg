@@ -4,24 +4,25 @@ participant Client
 participant Server
 participant Database
 
-Client->Server: show settings
+Client->Server: GET /settings
 activate Client
 activate Server
 Server->Database: get settings
 activate Database
-Database->Server: return settings
+Database-->Server: return settings
 deactivate Database
-Server->Client: show settings
+Server-->Client: 200 OK - display settings
 deactivate Server
+deactivate Client
 
 
-Client->Server: change settings
-
+Client->Server: POST /settings
+activate Client
 activate Server
 Server->Database: save settings
 activate Database
-Database->Server: return saved settings
+Database-->Server: settings saved successfully
 deactivate Database
-Server->Client:show settings
+Server-->Client: 200 OK - settings saved
 deactivate Server
 deactivate Client
