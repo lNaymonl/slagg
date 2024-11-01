@@ -1,0 +1,28 @@
+title Login Slagg
+
+participant Client
+participant Server
+participant Database
+
+Client->Server: POST /api/login
+activate Client
+activate Server
+
+Server->Database: get credentials
+activate Database
+Database-->Server: return credentials
+deactivate Database
+Server->Server: validate credentials
+activate Server
+space 
+deactivate Server
+
+alt validation success
+Server->Server: generate JWT
+activate Server
+space 
+deactivate Server
+Server-->Client: 200 OK - login success, return JWT
+else validation failed
+Server-->Client: 401 unauthorized, login failed
+end

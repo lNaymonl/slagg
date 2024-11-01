@@ -4,7 +4,7 @@ participant Client
 participant Server
 participant Database
 
-Client->Server: GET /settings
+Client->Server: GET /api/settings
 activate Client
 activate Server
 Server->Database: get settings
@@ -16,7 +16,7 @@ deactivate Server
 deactivate Client
 
 
-Client->Server: POST /settings
+Client->Server: POST /api/settings
 activate Client
 activate Server
 Server->Database: save settings

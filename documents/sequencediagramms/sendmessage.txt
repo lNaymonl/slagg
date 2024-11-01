@@ -1,12 +1,15 @@
 title sending a message
 
 participant Client
+participant Websocket
 participant Server
 participant Database
 
-Client->Server: POST /message
-
+Client->Websocket: send message
 activate Client
+activate Websocket
+Websocket->Server: transfer message
+deactivate Websocket
 activate Server
 
 Server->Database: get forbidden words
@@ -16,19 +19,22 @@ deactivate Database
 
 Server->Server: check for forbidden words
 activate Server
-alt
+space
 deactivate Server
 
 alt no forbidden words found
 
 Server->Database: save message
+
 activate Database
-Database-->Server: saved succesfully
+Database-->Websocket: saved succesfully
 deactivate Database
-Server-->Client: 200 OK - message success
+activate Websocket
+Websocket-->Client: 200 OK - message success
+deactivate Websocket
 else forbidden words found
 Server-->Client: 406 not acceptable - message failed
 end
-alt
+space 
 deactivate Client
 deactivate Server
