@@ -1,6 +1,6 @@
 # Entwurf der Benutzeroberfläche
 
-Der Entwurf der Benutzeroberfläche für die Chat-Applikation besteht aus meheren Elementen, um eine intuitive, ansprechende Umgebung und vorallem eine schnelle Kommunkation zwischen den Mitarbeitern zu schaffen. Die folgenden Elemente sind die Hauptkomponenten des Entwurfs:
+Der Entwurf der Benutzeroberfläche für die Chat-Applikation besteht aus mehreren Elementen, die eine intuitive und ansprechende Umgebung schaffen sollen sowie eine schnelle Kommunikation zwischen den Mitarbeitern. Die folgenden Elemente sind die Hauptkomponenten des Entwurfs:
 
 1. Navigation: Eine Seitenleiste am seitlichen Rand bieten den Benutzern Zugriff auf verschiedene Teile der Anwendung. Diese Abschnitte beinhalten die Home-Page sowie die Benutzereinstellungen.
 2. Home-Page: Die Home-Page besteht aus zwei Komponenten, dem Channel-Überblick sowie dem Chat. Der Channel-Überblick, ähnlich wie die Seitenleiste, soll am linken Rand der Benutzeroberfläche lokalisert sein. Der restliche Platz wird vom Chat Fenster befüllt.
