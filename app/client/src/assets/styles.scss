@@ -18,24 +18,7 @@ $theme-colors: (
     "warning": #ffc107,
     "danger": #dc3545,
     "light": #f8f9fa,
-    "dark": #212529,
-    "white": #FFFFFF,
-    "black": #000000
-);
-
-$spacer: 1rem;
-$spacers: (
-   0: 0,
-   1: $spacer * .25,
-   2: $spacer * .5,
-   3: $spacer,
-   4: $spacer * 1.5,
-   5: $spacer * 3,
-   6: $spacer * 3.5,
-   7: $spacer * 4,
-   8: $spacer * 4.5,
-   9: $spacer * 5,
-  10: $spacer * 6,
+    "dark": #212529
 );
 
 $theme-colors: map-merge($theme-colors, $colors);
@@ -58,12 +41,3 @@ $theme-colors: map-merge($theme-colors, $colors);
 }
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";
-
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-}
