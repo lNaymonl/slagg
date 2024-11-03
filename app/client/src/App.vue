@@ -24,7 +24,7 @@ import Header from './components/header/Header.vue';
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: var(--body-bg);
+  background-color: var(body-color);
   color: var(--text-color);
 }
 
@@ -36,7 +36,7 @@ import Header from './components/header/Header.vue';
 
 main {
   flex: 1;
-  padding: 2rem;
+  // padding: 2rem;
   overflow-y: auto;
   background-color: var(--content-bg);
 

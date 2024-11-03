@@ -1,180 +1,272 @@
-<script setup>
-import { ref, onMounted } from 'vue';
-
-const items = ref([
-  // Example default items can go here if needed
-]);
-
-// Fetch items from API using Fetch
-const fetchItems = async () => {
-  const userId = 1;
-  try {
-    const response = await fetch(`/api/settings/getsettings?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();  // Parse the JSON response directly
-    items.value = data;  // Update items with the fetched array of settings
-    console.log('Fetched items:', items.value);
-  } catch (error) {
-    console.error('Error fetching items:', error.message);
-  }
-};
-
-
-
-
-
-onMounted(() => {
-  fetchItems();
-});
-</script>
-
 <template>
-  <div class="container mt-4">
-    <h2 class="text-light mb-4">User Settings</h2>
-    <div class="row">
-      <!-- Iterate through settings -->
-      <div v-for="(item, index) in items" :key="index" class="col-md-6 mb-4">
-        <div class="card bg-primary-alt text-light p-3 shadow-sm">
-          <div class="card-body">
-            <!-- Text Input -->
-            <div v-if="item.settingInputType === 'text'" class="form-group">
-              <label :for="'setting-' + item.settingId" class="form-label">
-                {{ item.settingName }}
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                :id="'setting-' + item.settingId"
-                :placeholder="item.value"
-              />
-            </div>
+  <div class="settings-page">
+    <aside class="settings-sidebar">
+      <nav>
+        <h3>Settings</h3>
+        <ul>
+          <li @click="currentSection = 'profile'" :class="{ active: currentSection === 'profile' }">Profile</li>
+          <li @click="currentSection = 'account'" :class="{ active: currentSection === 'account' }">Account</li>
+          <li @click="currentSection = 'notifications'" :class="{ active: currentSection === 'notifications' }">Notifications</li>
+        </ul>
+      </nav>
+    </aside>
 
-            <!-- Checkbox Input -->
-            <div v-else-if="item.settingInputType === 'checkbox'" class="form-check">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                :id="'setting-' + item.settingId"
-                v-model="item.value"
-                :true-value="1"
-                :false-value="0"
-              />
-              <label :for="'setting-' + item.settingId" class="form-check-label">
-                {{ item.settingName }}
-              </label>
-            </div>
+    <section class="settings-content">
+      <h2>{{ sectionTitle }}</h2>
 
-            <!-- Select Input -->
-            <div v-else-if="item.settingInputType === 'select'" class="form-group">
-              <label :for="'setting-' + item.settingId" class="form-label">
-                {{ item.settingName }}
-              </label>
-              <select class="form-control" v-model="item.value" :id="'setting-' + item.settingId">
-                <option v-for="option in item.options" :key="option" :value="option">{{ option }}</option>
-              </select>
-            </div>
+      <div v-if="currentSection === 'profile'" class="settings-section">
+        <h3>Profile Settings</h3>
+        
+        <!-- Display Name -->
+        <div class="setting-item">
+          <label for="displayName">Display Name</label>
+          <input type="text" id="displayName" placeholder="Enter your display name" />
+        </div>
 
-            <!-- Radio Buttons -->
-            <div v-else-if="item.settingInputType === 'radio'" class="form-group">
-              <label>{{ item.settingName }}</label>
-              <div v-for="option in item.options" :key="option" class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  :value="option"
-                  v-model="item.value"
-                  :id="option"
-                />
-                <label :for="option" class="form-check-label">{{ option }}</label>
-              </div>
-            </div>
-
-            <!-- Number Input -->
-            <div v-else-if="item.settingInputType === 'number'" class="form-group">
-              <label :for="'setting-' + item.settingId" class="form-label">
-                {{ item.settingName }}
-              </label>
-              <input
-                type="number"
-                class="form-control"
-                v-model="item.value"
-                :min="item.min"
-                :max="item.max"
-              />
-            </div>
-
-            <!-- Textarea Input -->
-            <div v-else-if="item.settingInputType === 'textarea'" class="form-group">
-              <label :for="'setting-' + item.settingId" class="form-label">{{ item.settingName }}</label>
-              <textarea class="form-control" v-model="item.value" :rows="5"></textarea>
-            </div>
+        <!-- Profile Picture with Avatar Preview -->
+        <div class="setting-item profile-picture">
+          <label for="profilePicture">Profile Picture</label>
+          <div class="profile-upload">
+            <img src="@/assets/Louie.jpg" alt="User Avatar" class="avatar-preview" />
+            <input type="file" id="profilePicture" />
           </div>
         </div>
+
+        <!-- Status -->
+        <div class="setting-item">
+          <label for="status">Status</label>
+          <textarea id="status" rows="2" placeholder="Enter your current status"></textarea>
+        </div>
+
+        <!-- Save and Cancel Buttons -->
+        <div class="settings-buttons">
+          <button class="save-button" @click="saveChanges">Save Changes</button>
+          <button class="cancel-button" @click="cancelChanges">Cancel</button>
+        </div>
       </div>
-    </div>
+
+      <div v-if="currentSection === 'account'" class="settings-section">
+        <h3>Account Settings</h3>
+
+        <!-- Change Password -->
+        <div class="setting-item">
+          <label for="password">Change Password</label>
+          <input type="password" id="password" placeholder="Enter new password" />
+        </div>
+
+        <!-- Theme -->
+        <div class="setting-item">
+          <label for="theme">Theme</label>
+          <select id="theme">
+            <option>Light</option>
+            <option>Dark</option>
+            <option>System Default</option>
+          </select>
+        </div>
+
+        <!-- Save and Cancel Buttons -->
+        <div class="settings-buttons">
+          <button class="save-button" @click="saveChanges">Save Changes</button>
+          <button class="cancel-button" @click="cancelChanges">Cancel</button>
+        </div>
+      </div>
+
+      <div v-if="currentSection === 'notifications'" class="settings-section">
+        <h3>Notification Settings</h3>
+
+        <!-- Email Notifications -->
+        <div class="setting-item">
+          <label for="emailNotifications">Email Notifications</label>
+          <input type="checkbox" id="emailNotifications" />
+        </div>
+
+        <!-- Sound Notifications -->
+        <div class="setting-item">
+          <label for="soundNotifications">Sound Notifications</label>
+          <input type="checkbox" id="soundNotifications" />
+        </div>
+
+        <!-- Save and Cancel Buttons -->
+        <div class="settings-buttons">
+          <button class="save-button" @click="saveChanges">Save Changes</button>
+          <button class="cancel-button" @click="cancelChanges">Cancel</button>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
-<style scoped>
-.container {
-  max-width: 900px;
-  background-color: var(--body-bg);
-  padding: 20px;
-  border-radius: 10px;
-}
+<script setup>
+import { ref, computed } from 'vue';
 
-h2 {
-  font-size: 1.8rem;
-  font-weight: bold;
+const currentSection = ref('profile');
+
+const sectionTitle = computed(() => {
+  switch (currentSection.value) {
+    case 'profile':
+      return 'Profile Settings';
+    case 'account':
+      return 'Account Settings';
+    case 'notifications':
+      return 'Notification Settings';
+    default:
+      return 'Settings';
+  }
+});
+
+// Dummy methods for save and cancel actions
+const saveChanges = () => {
+  alert("Changes saved successfully!");
+};
+
+const cancelChanges = () => {
+  alert("Changes canceled.");
+};
+</script>
+
+<style scoped>
+.settings-page {
+  display: flex;
+  height: 100vh;
+  background-color: var(--body-bg);
   color: var(--text-color);
 }
 
-.card {
+.settings-sidebar {
+  width: 250px;
   background-color: var(--primary-alt);
-  border: none;
-  border-radius: 8px;
+  padding: 1.5rem;
+  border-right: 1px solid var(--grey);
 }
 
-.form-label {
+.settings-sidebar h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.settings-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.settings-sidebar li {
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  color: var(--light);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.settings-sidebar li:hover, .settings-sidebar li.active {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.settings-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.settings-content h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.settings-section h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.setting-item {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-item label {
+  font-size: 0.9rem;
   font-weight: bold;
   color: var(--primary);
-  text-transform: capitalize;
+  margin-bottom: 0.5rem;
 }
 
-.form-control {
-  background-color: var(--light);
+.setting-item input[type="text"],
+.setting-item input[type="password"],
+.setting-item select,
+.setting-item textarea {
+  width: 60%;
+  padding: 0.5rem;
+  border-radius: 6px;
   border: 1px solid var(--grey);
+  background-color: #f8f9fa;
   color: var(--dark-alt);
-  padding: 10px;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.form-control:focus {
-  box-shadow: 0 0 5px var(--accent);
+.setting-item input[type="text"]:focus,
+.setting-item input[type="password"]:focus,
+.setting-item select:focus,
+.setting-item textarea:focus {
+  box-shadow: 0 0 0 2px var(--accent);
 }
 
-.form-check-input {
-  background-color: var(--body-bg);
-  border: 2px solid var(--primary);
-  transition: all 0.3s;
+.setting-item textarea {
+  resize: none;
+  height: 50px;
 }
 
-.form-check-input:checked {
+.profile-picture .profile-upload {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-preview {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+}
+
+/* Save and Cancel Buttons */
+.settings-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.save-button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
   background-color: var(--accent);
-  border-color: var(--accent);
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.form-check-label {
+.save-button:hover {
+  background-color: darken(var(--accent), 10%);
+}
+
+.cancel-button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: var(--grey);
   color: var(--text-color);
-  margin-left: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: darken(var(--grey), 10%);
 }
 </style>
