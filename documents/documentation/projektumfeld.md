@@ -1,0 +1,3 @@
+## Projektumfeld
+
+Das Projekt fand im Umfeld der ZFRE IT-Solutions GmbH statt. Die ZFRE IT-Solutions GmbH ist ein Unternehmen, das sich auf die Entwicklung und Bereitstellung von maßgeschneiderten Softwarelösungen spezialisiert hat. Im Auftrag ihrer Kunden erstellt das Unternehmen Softwareprodukte, die sowohl standardisierte als auch individuelle Anforderungen abdecken. Der Fokus liegt dabei auf der Entwicklung sicherer IT-Lösungen, die in stark regulierten und sicherheitskritischen Umgebungen Anwendung finden. Der Sitz der ZFRE IT-Solutions GmbH ist in Oldenburg und das Unternehmen bietet seine Dienstleistungen deutschlandweit sowie international an.
