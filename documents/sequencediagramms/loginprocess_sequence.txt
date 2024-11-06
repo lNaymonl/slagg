@@ -1,28 +1,40 @@
-title Login Slagg
+title sending a message
 
 participant Client
+
 participant Server
 participant Database
 
-Client->Server: POST /api/login
+Client->Server: Websocket: send message
 activate Client
 activate Server
 
-Server->Database: get credentials
+
+
+
+Server->Database: get forbidden words
 activate Database
-Database-->Server: return credentials
+Database-->Server: return forbidden words
 deactivate Database
-Server->Server: validate credentials
+
+Server->Server: check for forbidden words
 activate Server
-space 
+space
 deactivate Server
 
-alt validation success
-Server->Server: generate JWT
-activate Server
-space 
-deactivate Server
-Server-->Client: 200 OK - login success, return JWT
-else validation failed
-Server-->Client: 401 unauthorized, login failed
+
+alt no forbidden words found
+Server->Database: save message
+
+activate Database
+Database-->Server: saved succesfully
+deactivate Database
+
+Server-->Client: 200 OK - message success
+
+else forbidden words found
+Server-->Client: 406 Not Acceptable - message failed
 end
+space 
+deactivate Client
+deactivate Server
