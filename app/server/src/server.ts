@@ -18,6 +18,8 @@ const CLIENT_REGEX = /^\/(?!api|ws|docs).*/;
 import swaggerUi from "swagger-ui-express";
 import apiDef from "../../../documents/openapi.yaml";
 
+app.use(express.json());
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(apiDef));
 
 // API Mapping
