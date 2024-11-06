@@ -1,0 +1,40 @@
+title sending a message
+
+participant Client
+
+participant Server
+participant Database
+
+Client->Server: Websocket: send message
+activate Client
+activate Server
+
+
+
+
+Server->Database: get forbidden words
+activate Database
+Database-->Server: return forbidden words
+deactivate Database
+
+Server->Server: check for forbidden words
+activate Server
+space
+deactivate Server
+
+
+alt no forbidden words found
+Server->Database: save message
+
+activate Database
+Database-->Server: saved succesfully
+deactivate Database
+
+Server-->Client: 200 OK - message success
+
+else forbidden words found
+Server-->Client: 406 Not Acceptable - message failed
+end
+space 
+deactivate Client
+deactivate Server

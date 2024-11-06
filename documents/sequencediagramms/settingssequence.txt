@@ -1,0 +1,28 @@
+title showing/changing settings
+
+participant Client
+participant Server
+participant Database
+
+Client->Server: GET /api/settings
+activate Client
+activate Server
+Server->Database: get settings
+activate Database
+Database-->Server: return settings
+deactivate Database
+Server-->Client: 200 OK - display settings
+deactivate Server
+deactivate Client
+
+
+Client->Server: POST /api/settings
+activate Client
+activate Server
+Server->Database: save settings
+activate Database
+Database-->Server: settings saved successfully
+deactivate Database
+Server-->Client: 200 OK - settings saved
+deactivate Server
+deactivate Client
