@@ -41,3 +41,6 @@
 | Erstellen der Projektdokumentation    |  18h |
 | Erstellen der Entwicklerdokumentation |   8h |
 | Erstellen der Benutzerdokumentation   |   6h |
+
+| Gesamt | 191 h |
+| ------ | ----- |
