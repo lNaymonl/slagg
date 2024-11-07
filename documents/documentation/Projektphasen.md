@@ -1,4 +1,4 @@
-Das Projekt wurde am xx.xx.xxxx gestartet und endete mit einer Gesamtdauer von 191 Stunden am xx.xx.xxxx. Das Projekt wurde in 5 Phasen aufgeteilt: die Analysephase, die Entwurfphase, die Implementierungsphase, das Deployment und die Dokumentation. Jede Projektphase wurde hierbei in einige kleinere Teile unterteilt. Eine detailierte Übersicht der Phasen sowie der Aufteilung dieser befindet sich im Anhang [hier Anhangverweis einfügen.]
+Das Projekt wurde am xx.xx.xxxx gestartet und endete mit einer Gesamtdauer von 191 Stunden am 19.11.2024. Das Projekt wurde in 5 Phasen aufgeteilt: die Analysephase, die Entwurfphase, die Implementierungsphase, das Deployment und die Dokumentation. Jede Projektphase wurde hierbei in einige kleinere Teile unterteilt. Eine detailierte Übersicht der Phasen sowie der Aufteilung dieser befindet sich im Anhang [hier Anhangverweis einfügen.]
 
 | Analyse                                                                        | 11 h |
 | ------------------------------------------------------------------------------ | ---: |
