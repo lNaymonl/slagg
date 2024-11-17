@@ -167,17 +167,30 @@ Die Entwicklerdokumentation ist zweiteilig zusammengesetzt aus Code-Kommentaren 
 
 # 8 Fazit
 
+Abschließend kann das Projekt als Erfolg gewertet werden. Slagg wurde wie in Abschnitt 2.2 anhand des Lastenheftes beschrieben als MVP realisiert, womit die mit dem Kunden abgestimmten Kernziele erreicht wurden. Ebenfalls konnte der Kunde Slagg bereits bei sich im Einsatz testen und gegen das eigene Sicherheitskonzept testen. 
+Allerdings gab es im organisatorischen Bereich einige Probleme während der Projektumsetzung. Wie im nächsten Abschnitt noch detaillierter aufgezeigt wird, gab es Probleme mit dem Zeitmanagement, ebenso litt die Teamkommunikation ab der Hälfte der Umsetzung stark. 
 
-# 8.1 Soll-/Ist-Vergleich
+## 8.1 Soll-/Ist-Vergleich
 
+| Phase           | Ursprünglich | Tasächlich |
+| --------------- | ------------ | ---------- |
+| Analyse         | 11           | 15         |
+| Entwurf         | 24           | 34         |
+| Implementierung | 104          | 90         |
+| Deployment      | 20           | 20         |
+| Dokumentation   | 32           | 32         |
 
-Analyse     11 || 15
-Entwurf     24 |||| 34
-Implementierung     104 |||| 90 
-Deployment      20 |||| 20
-Dokumentation   32 |||| 32
+Wie der tabellarischen Übersicht zu entnehmen ist, wurde mehr Zeit als ursprünglich angenommen für die Analyse- und Entwurfsphase aufgewendet. Die dadurch bedingte zeitliche Verzögerung musste in der Implementierungsphase kompensiert werden. Infolge der vorgenannten Umstände sowie der bereits erwähnten Schwierigkeiten in der internen Kommunikation war eine Anpassung des Umsetzungumfangs erforderlich. Somit wurde Slagg nicht im vollen Umfang des Pflichtenheftes gemäß Abschnitt 2.5 umgesetzt, sondern der minimale Umfang, auf den sich beide Parteien geeinigt hatten, wurde priorisiert. Als Konsequenz daraus wurden weder die Gruppenchats noch die optionalen Designs umgesetzt. Die Anforgerungen mit Prioritätstufe 1 aus dem Pflichtenheft, konnten allerdings im vollen Umfang umgesetzt werden.
 
+## 8.2 Lessons learned 
 
+Das Projekt „Slagg“ hat für alle Beteiligten viele wichtige Erkenntnisse gebracht und die Fähigkeiten der Auszubildenden im Bereich der Softwareentwicklung deutlich erweitert. Eine wesentliche Erkenntnis war die Bedeutung einer strukturierten und konsequent durchgeführten Planungsphase. Trotz anfänglicher Verzögerungen in der Analyse- und Entwurfsphase konnte durch gezielte Anpassungen in der Implementierungsphase die Projektzeit insgesamt eingehalten werden. Dies zeigte, wie wichtig Flexibilität und proaktives Management in der Projektplanung sind, um auf unerwartete Herausforderungen reagieren zu können.
 
-# 8.2 Lessons learned 
+Ein weiterer wichtiger Lernaspekt war die Einführung und Nutzung neuer Technologien und Tools. Die Arbeit mit Drizzle ORM und die Implementierung von WebSocket-Verbindungen stellten eine Herausforderung dar, trugen aber wesentlich zur Weiterentwicklung der technischen Kompetenz der Auszubildenden bei. Das Projekt hat gezeigt, dass die Bereitschaft, sich in neue Tools und Frameworks einzuarbeiten, langfristig zu effizienteren und robusteren Lösungen führt.
+
+## 8.3 Ausblick
+
+Wie in den vorherigen Kapiteln beschrieben, wurde das Projekt „Slagg“ als MVP implementiert und erfüllt die grundlegenden Anforderungen des Kunden. Um die Benutzerfreundlichkeit und Funktionalität weiter zu verbessern, sind bereits Erweiterungen geplant. Diese umfassen unter anderem die Implementierung von Gruppenchats und die Möglichkeit, optionale Designs für die Benutzeroberfläche zu verwenden. Diese Zusatzfunktionen sollen im Anschluss an das Projekt von den Auszubildenden implementiert werden, um den Funktionsumfang des Tools weiter auszubauen und die Effizienz der Anwender zu steigern.
+
+Durch die modulare, dreischichtige Architektur und die Verwendung von MVC-Prinzipien (Model-View-Controller) ist die Anwendung so strukturiert, dass zukünftige Erweiterungen und Anpassungen problemlos integriert werden können. Dies ermöglicht eine flexible Anpassung an sich ändernde Kundenanforderungen und eine kontinuierliche Verbesserung des Tools. Weitere Auswertungs- und Monitoring-Funktionen, die eine detailliertere Analyse der Chat-Aktivitäten ermöglichen, sind bereits in Planung und könnten in zukünftigen Updates umgesetzt werden.
 
